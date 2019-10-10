@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Parallax Background
+  - Background
+  - Base Tiles
+  - Under Player
+  - Player
+  - Above Player
+  - Above Tiles
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Parallax Background
+    uniqueID: 477001673
+    locked: 0
+  - name: Background
+    uniqueID: 3127875099
+    locked: 0
+  - name: Base Tiles
+    uniqueID: 3904716517
+    locked: 0
+  - name: Under Player
+    uniqueID: 1005111323
+    locked: 0
+  - name: Player
+    uniqueID: 899450863
+    locked: 0
+  - name: Above Player
+    uniqueID: 3478935425
+    locked: 0
+  - name: Above Tiles
+    uniqueID: 2903324839
+    locked: 0
+  - name: UI
+    uniqueID: 2613772477
+    locked: 0

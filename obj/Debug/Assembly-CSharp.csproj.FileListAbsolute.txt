@@ -1,0 +1,2 @@
+E:\Projects\Snails Pace\Snails Pace\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+E:\Projects\Snails Pace\Snails Pace\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
