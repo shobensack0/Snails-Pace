@@ -68,9 +68,6 @@
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>E:/Snails Pace/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>E:/Snails Pace/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>E:/Snails Pace/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
