@@ -75,17 +75,27 @@ public class PlayerMovement : MonoBehaviour
         // set direction in x and y
         this.SetDirection(horizontalMovement, verticalMovement, ref directionX, ref directionY);
         this.SetDirection(verticalMovement, horizontalMovement, ref directionY, ref directionX);
+        this.SetSpriteRenderDirection();
 
         // set motion states
         this.SetRunState(isRunning);
         this.SetJumpState(jumpPressed);
-        this.setAttackState(isAttacking, isMoving);
+        this.SetAttackState(isAttacking, isMoving);
 
         // set movement
         movement = new Vector2(horizontalMovement, verticalMovement);
     }
 
-    private void setAttackState(bool isAttacking, bool isMoving)
+    private SetSpriteRenderDirection()
+    {
+        if (this.directionX <= 0)
+        {
+
+            sprite.
+        }
+    }
+
+    private void SetAttackState(bool isAttacking, bool isMoving)
     {
         if (isAttacking)
         {
