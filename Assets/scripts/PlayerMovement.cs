@@ -1,23 +1,27 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public bool isDebug = false;
 
     // config values
-    public float defaultMoveSpeed = 5f;
+    private float defaultMoveSpeed = 5f;
 
     // game components
-    public Rigidbody2D body;
-    public Animator animator;
-    public SpriteRenderer sprite;
-
-    public Collider2D swordSliceHitBoxLeft;
-    public Collider2D swordSliceHitBoxRight;
+    private Rigidbody2D rigidBody;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     // effects
-    public GameObject runDustCloud;
+    public GameObject runEffect;
+
+    // weapons
+    public GameObject currentWeapon;
+    private Animator currentWeaponAnimator;
+    private SpriteRenderer currentWeaponSpriteRenderer;
+    private PolygonCollider2D currentWeaponCollider;
+
+    private bool isAttacking = false;
 
     // setable components
     private Vector2 movement;
@@ -26,13 +30,12 @@ public class PlayerMovement : MonoBehaviour
     private float jumpTimer = 0.0f;
 
     private float currentMoveSpeed = 5f;
-    private float minRunSpeed = 5.0f;
-    private float maxRunSpeed = 10f;
-    private float runAcceleration = 10f;
-    private float runDeceleration = 12f;
-
-    // attack
-
+    private readonly float attackMoveSpeed = 1f;
+    private readonly float carryMoveSpeed = 2f;
+    private readonly float minRunSpeed = 5.0f;
+    private readonly float maxRunSpeed = 10f;
+    private readonly float runAcceleration = 10f;
+    private readonly float runDeceleration = 12f;
 
     private readonly float JUMP_TIME = 0.5f;
 
@@ -42,7 +45,17 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rigidBody = this.GetComponent<Rigidbody2D>();
+        animator = this.GetComponent<Animator>();
+        spriteRenderer = this.GetComponent<SpriteRenderer>();
 
+        // TODO: this NEEDS to be abstracted
+        if (currentWeapon != null)
+        {
+            currentWeapon.TryGetComponent(out currentWeaponAnimator);
+            currentWeapon.TryGetComponent(out currentWeaponSpriteRenderer);
+            currentWeapon.TryGetComponent(out currentWeaponCollider);
+        }
     }
 
     // Update is called once per frame
@@ -59,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // movement here, updates 50 times per second
         // TODO: normalized is bad for controllers
-        body.MovePosition(body.position + movement.normalized * currentMoveSpeed * Time.fixedDeltaTime);
+        rigidBody.MovePosition(rigidBody.position + movement.normalized * currentMoveSpeed * Time.fixedDeltaTime);
     }
 
     private void SetMovementInput()
@@ -70,42 +83,57 @@ public class PlayerMovement : MonoBehaviour
         var isMoving = animator.GetFloat("Speed") > 0.0f;
         var isRunning = Input.GetAxisRaw("Fire3") > 0.0f;
         var jumpPressed = Input.GetAxisRaw("Jump") > 0.0f;
-        var isAttacking = Input.GetAxisRaw("Fire1") > 0.0f;
+        var attackOneInput = Input.GetAxisRaw("Fire1") > 0.0f;
+        var attackTwoInput = Input.GetAxisRaw("Fire2") > 0.0f;
 
         // set direction in x and y
         this.SetDirection(horizontalMovement, verticalMovement, ref directionX, ref directionY);
         this.SetDirection(verticalMovement, horizontalMovement, ref directionY, ref directionX);
-        this.SetSpriteRenderDirection();
 
         // set motion states
         this.SetRunState(isRunning);
         this.SetJumpState(jumpPressed);
-        this.SetAttackState(isAttacking, isMoving);
+        this.SetAttackState(attackOneInput, attackTwoInput, isMoving);
 
         // set movement
         movement = new Vector2(horizontalMovement, verticalMovement);
     }
 
-    private SetSpriteRenderDirection()
-    {
-        if (this.directionX <= 0)
-        {
-
-            sprite.
-        }
-    }
-
-    private void SetAttackState(bool isAttacking, bool isMoving)
+    private void SetAttackState(bool attackOneTriggered, bool attackTwoTriggered, bool isMoving)
     {
         if (isAttacking)
         {
+            if (currentWeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                // not attacking anymore, so reset
+                isAttacking = false;
 
-            animator.SetBool("Is Attacking", true);
+                // just make sure weapon collider is definitely disabled
+                currentWeaponCollider.enabled = false;
+                currentMoveSpeed = minRunSpeed;
+            }
         }
         else
         {
-
-            animator.SetBool("Is Attacking", false);
+            // were not attacking, so okay to trigger another
+            if (attackOneTriggered && currentWeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                currentWeaponAnimator.SetTrigger("Attack");
+                isAttacking = true;
+                currentMoveSpeed = attackMoveSpeed;
+            }
+            else if (attackTwoTriggered)
+            {
+                animator.SetBool("Is Carrying", true);
+                currentMoveSpeed = carryMoveSpeed;
+                animator.speed = 0.5f;
+            }
+            else
+            {
+                animator.SetBool("Is Carrying", false);
+                currentMoveSpeed = minRunSpeed;
+                animator.speed = 1.0f;
+            }
         }
     }
 
@@ -120,10 +148,6 @@ public class PlayerMovement : MonoBehaviour
             if (otherInputMovement != 0)
             {
                 otherDirection = otherInputMovement;
-            }
-            else
-            {
-                otherDirection = 0;
             }
         }
     }
@@ -154,17 +178,17 @@ public class PlayerMovement : MonoBehaviour
                 if (directionY < 0)
                 {
                     // we are facing down, so make change the order layer of the smoke
-                    dustRenderer = runDustCloud.GetComponent<ParticleSystem>()?.GetComponent<ParticleSystemRenderer>();
+                    dustRenderer = runEffect.GetComponent<ParticleSystem>()?.GetComponent<ParticleSystemRenderer>();
                     dustRenderer.sortingOrder = 4;
                 }
                 else
                 {
                     // otherwise back to 10
-                    dustRenderer = runDustCloud.GetComponent<ParticleSystem>()?.GetComponent<ParticleSystemRenderer>();
+                    dustRenderer = runEffect.GetComponent<ParticleSystem>()?.GetComponent<ParticleSystemRenderer>();
                     dustRenderer.sortingOrder = 6;
                 }
 
-                Instantiate(runDustCloud, new Vector2(sprite.bounds.center.x, sprite.bounds.min.y), runDustCloud.transform.rotation);
+                Instantiate(runEffect, new Vector2(spriteRenderer.bounds.center.x, spriteRenderer.bounds.min.y), runEffect.transform.rotation);
             }
         }
         else
@@ -212,6 +236,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetAnimation()
     {
+        if (animator.GetFloat("Horizontal") != directionX) {
+            // make sure to flip sprite if moving left or right
+            if (this.directionX <= 0)
+            {
+                spriteRenderer.flipX = true;
+
+                // weapon stuff TODO: get this the hell out of here
+                currentWeaponCollider.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+
+                // weapon stuff TODO: get this the hell out of here
+                currentWeaponCollider.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+            }
+        }
+
+        if (animator.GetFloat("Vertical") != directionY) {
+            // make sure to change sort order if moving up or down
+            if (this.directionY <= 0)
+            {
+                currentWeaponSpriteRenderer.sortingOrder = 6;
+            }
+            else
+            {
+                currentWeaponSpriteRenderer.sortingOrder = 4;
+            }
+
+        }
+
         // set animation values to their cooresponding directions
         animator.SetFloat("Horizontal", directionX);
         animator.SetFloat("Vertical", directionY);
