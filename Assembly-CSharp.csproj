@@ -64,7 +64,10 @@
   <ItemGroup>
     <Compile Include="Assets\scripts\Destroy.cs" />
     <Compile Include="Assets\scripts\Enemy.cs" />
-    <Compile Include="Assets\scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\scripts\Player\Animation.cs" />
+    <Compile Include="Assets\scripts\Player\Attack.cs" />
+    <Compile Include="Assets\scripts\Player\Movement.cs" />
+    <Compile Include="Assets\scripts\Player\Player.cs" />
     <None Include="Assets\AnimationImporter\readme.txt" />
     <None Include="Assets\art\README.txt" />
     <Reference Include="Unity.Timeline.Editor">
