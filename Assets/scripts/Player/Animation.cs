@@ -5,48 +5,48 @@ namespace Player
     public class Animation : MonoBehaviour
     {
         private Animator animator;
-        private SpriteRenderer spriteRenderer;
+        private Animator powerAnimator;
+        private Animator currentWeaponAnimator;
 
-        private Movement characterMovement;
-        private Attack characterAttack;
+        private SpriteRenderer spriteRenderer;
+        private SpriteRenderer currentWeaponSpriteRenderer;
+
+        private Movement thisCharacterMovement;
+        private Attack thisCharacterAttack;
 
         public GameObject runEffect;
 
         public bool attackAnimationPlaying = false;
         public bool powerAnimationPlaying = false;
 
-        private Animator currentWeaponAnimator;
-        private SpriteRenderer currentWeaponSpriteRenderer;
-        private Animator powerAnimator;
+        public bool overChargedAnimationPlaying = false;
 
-
-        // Start is called before the first frame update
         void Start()
         {
             animator = this.GetComponent<Animator>();
             spriteRenderer = this.GetComponent<SpriteRenderer>();
 
-            characterMovement = this.GetComponent<Movement>();
-            characterAttack = this.GetComponent<Attack>();
+            thisCharacterMovement = this.GetComponent<Movement>();
+            thisCharacterAttack = this.GetComponent<Attack>();
 
-            currentWeaponAnimator = characterAttack.currentWeapon.GetComponent<Animator>();
-            currentWeaponSpriteRenderer = characterAttack.currentWeapon.GetComponent<SpriteRenderer>();
-            powerAnimator = characterAttack.currentPower.GetComponent<Animator>();
+            currentWeaponAnimator = thisCharacterAttack.currentWeapon.GetComponent<Animator>();
+            currentWeaponSpriteRenderer = thisCharacterAttack.currentWeapon.GetComponent<SpriteRenderer>();
+            powerAnimator = thisCharacterAttack.currentPower.GetComponent<Animator>();
         }
 
-        // Update is called once per frame
         void Update()
         {
             this.DetermineRunState();
-            this.DetermineMovementState();
+            this.DetermineMovementAndDirectionalState();
             this.DetermineAttackState();
+            this.DetermineOverChargeState();
         }
 
         private void DetermineRunState()
         {
             ParticleSystemRenderer dustRenderer = null;
 
-            if (characterMovement.isRunning)
+            if (thisCharacterMovement.isRunning)
             {
                 animator.speed = 1.5f;
 
@@ -54,7 +54,7 @@ namespace Player
                 if (animator.GetFloat("Speed") > 0.01)
                 {
                     // create run effect
-                    if (characterMovement.directionY < 0)
+                    if (thisCharacterMovement.directionY < 0)
                     {
                         // we are facing down, so make change the order layer of the smoke
                         dustRenderer = runEffect.GetComponent<ParticleSystem>()?.GetComponent<ParticleSystemRenderer>();
@@ -78,75 +78,119 @@ namespace Player
             }
         }
 
-        private void DetermineMovementState()
+        private void DetermineMovementAndDirectionalState()
         {
-            if (animator.GetFloat("Horizontal") != characterMovement.directionX)
+            if (animator.GetFloat("Horizontal") != thisCharacterMovement.directionX)
             {
                 // make sure to flip sprite if moving left or right
-                if (characterMovement.directionX <= 0)
+                if (thisCharacterMovement.directionX <= 0)
                 {
                     spriteRenderer.flipX = true;
 
-                    // weapon stuff TODO: get this the hell out of here
-                    //currentWeaponCollider.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+                    // TODO: shouldn't have to call attack from animator
+                    thisCharacterAttack.FlipWeaponCollider(180.0f);
                 }
                 else
                 {
                     spriteRenderer.flipX = false;
 
-                    // weapon stuff TODO: get this the hell out of here
-                    //currentWeaponCollider.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+                    // TODO: shouldn't have to call attack from animator
+                    thisCharacterAttack.FlipWeaponCollider(0.0f);
                 }
             }
 
-            if (animator.GetFloat("Vertical") != characterMovement.directionY)
+            if (animator.GetFloat("Vertical") != thisCharacterMovement.directionY)
             {
                 // make sure to change sort order if moving up or down
-                if (characterMovement.directionY <= 0)
+                if (thisCharacterMovement.directionY <= 0)
                 {
-                    //currentWeaponSpriteRenderer.sortingOrder = 6;
+                    currentWeaponSpriteRenderer.sortingOrder = 6;
                 }
                 else
                 {
-                    //currentWeaponSpriteRenderer.sortingOrder = 4;
+                    currentWeaponSpriteRenderer.sortingOrder = 4;
                 }
-
             }
 
             // set animation values to their cooresponding directions
-            animator.SetFloat("Horizontal", characterMovement.directionX);
-            animator.SetFloat("Vertical", characterMovement.directionY);
+            animator.SetFloat("Horizontal", thisCharacterMovement.directionX);
+            animator.SetFloat("Vertical", thisCharacterMovement.directionY);
 
             // sqrMagnitude will always be positive when we are moving
-            animator.SetFloat("Speed", characterMovement.currentMovement.sqrMagnitude);
+            animator.SetFloat("Speed", thisCharacterMovement.currentMovement.sqrMagnitude);
         }
 
         private void DetermineAttackState()
         {
-            if (characterAttack.isUsingAttack && !characterAttack.isUsingPower)
+            // determine input triggers
+            if (thisCharacterAttack.HasAttackBeenTriggered() && currentWeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !powerAnimator.GetBool("Charging"))
             {
-                if (currentWeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !powerAnimator.GetBool("Charging"))
+                if (thisCharacterAttack.attackTriggered)
                 {
-                    attackAnimationPlaying = true;
+                    // attack
                     currentWeaponAnimator.SetTrigger("Attack");
+                    attackAnimationPlaying = true;
                 }
-            }
-            else if (characterAttack.isUsingPower && !characterAttack.isUsingAttack)
-            {
-                if (currentWeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !powerAnimator.GetBool("Charging"))
+                else if (thisCharacterAttack.powerCharging)
                 {
-                    powerAnimationPlaying = true;
+                    // power
                     powerAnimator.SetBool("Charging", true);
                     animator.SetBool("Is Carrying", true);
+                    powerAnimationPlaying = true;
+                }
+            }
+
+            this.ResetAttackAnimations();
+        }
+
+        private void DetermineOverChargeState()
+        {
+            if (thisCharacterAttack.powerCharging)
+            {
+                if (powerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Over Charged"))
+                {
+                    this.RenderCharacterOverCharged();
                 }
             }
             else
             {
-                // not attacking, but see if animations are playing
-                if (currentWeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                if (powerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Over Charged"))
                 {
+                    this.ResetCharacter();
+                    powerAnimator.Play("No Power");
                 }
             }
         }
+
+        private void RenderCharacterOverCharged()
+        {
+            spriteRenderer.color = Color.black;
+        }
+
+        private void ResetCharacter()
+        {
+            spriteRenderer.color = Color.white;
+        }
+
+        private void ResetAttackAnimations()
+        {
+            if (!thisCharacterAttack.HasAttackBeenTriggered())
+            {
+                if (currentWeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                {
+                    // attack
+                    attackAnimationPlaying = false;
+                }
+
+                if (powerAnimator.GetBool("Charging"))
+                {
+                    // power
+                    powerAnimationPlaying = false;
+                    powerAnimator.SetBool("Charging", false);
+                    animator.SetBool("Is Carrying", false);
+                }
+            }
+        }
+
     }
 }

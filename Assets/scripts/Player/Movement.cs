@@ -19,20 +19,18 @@ namespace Player
         public bool isRunning = false;
         public bool isMoving = false;
 
-        // Start is called before the first frame update
         void Start()
         {
             rigidBody = this.GetComponent<Rigidbody2D>();
         }
 
-        private void FixedUpdate()
+        void FixedUpdate()
         {
             // movement here, updates 50 times per second
             // TODO: normalized is bad for controllers
             rigidBody.MovePosition(rigidBody.position + currentMovement.normalized * currentMoveSpeed * Time.fixedDeltaTime);
         }
 
-        // Update is called once per frame
         void Update()
         {
             var horizontalMovement = Input.GetAxisRaw("Horizontal");
@@ -96,6 +94,5 @@ namespace Player
             }
         }
     }
-
 }
 

@@ -132,9 +132,9 @@ GameObject:
   - component: {fileID: 45733203}
   - component: {fileID: 45733202}
   - component: {fileID: 45733201}
-  - component: {fileID: 45733209}
-  - component: {fileID: 45733208}
   - component: {fileID: 45733207}
+  - component: {fileID: 45733208}
+  - component: {fileID: 45733209}
   - component: {fileID: 45733205}
   - component: {fileID: 45733206}
   m_Layer: 0
@@ -321,8 +321,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 1446135769}
   currentPower: {fileID: 1512410482}
-  isUsingAttack: 0
-  isUsingPower: 0
+  attackTriggered: 0
+  powerTriggered: 0
 --- !u!114 &45733209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5000,6 +5000,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300885090057781757, guid: 795b5ea9abe67f64cab19e75b7e5c51c,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 795b5ea9abe67f64cab19e75b7e5c51c, type: 3}

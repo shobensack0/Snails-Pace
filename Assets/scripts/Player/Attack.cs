@@ -4,69 +4,88 @@ namespace Player
 {
     public class Attack : MonoBehaviour
     {
-        private Movement characterMovement;
-        private Animation characterAnimation;
+        private Movement thisCharacterMovement;
+        private Animation thisCharacterAnimation;
 
-        public GameObject currentWeapon;
         private PolygonCollider2D currentWeaponCollider;
 
+        public GameObject currentWeapon;
         public GameObject currentPower;
 
-        public bool isUsingAttack = false;
-        public bool isUsingPower = false;
+        public bool attackTriggered = false;
+        public bool powerCharging = false;
 
         // Start is called before the first frame update
         void Start()
         {
-            characterMovement = this.GetComponent<Movement>();
-            characterAnimation = this.GetComponent<Animation>();
+            thisCharacterMovement = this.GetComponent<Movement>();
+            thisCharacterAnimation = this.GetComponent<Animation>();
 
-
-            // TODO: this NEEDS to be abstracted, AND REMOVE
             if (currentWeapon != null)
             {
                 currentWeapon.TryGetComponent(out currentWeaponCollider);
             }
         }
 
-        // Update is called once per frame
         void Update()
         {
             var attackInputOnePressed = Input.GetAxisRaw("Fire1") > 0.0f;
             var attackInputTwoPressed = Input.GetAxisRaw("Fire2") > 0.0f;
 
-            this.DetermineAttackState(attackInputOnePressed, attackInputTwoPressed);
+            this.DetermineAttackState(attackInputOnePressed);
+            this.DeterminePowerState(attackInputTwoPressed);
         }
 
-        private void DetermineAttackState(bool attackInputOnePressed, bool attackInputTwoPressed)
+        public bool HasAttackBeenTriggered()
         {
-            if (attackInputOnePressed)
+            return attackTriggered || powerCharging;
+        }
+
+        public void FlipWeaponCollider(float flipDegrees)
+        {
+            // TODO: not my favorite way to do this, we should be able to determine direction from here not outside (ie right now its in the animator
+            currentWeaponCollider.transform.localEulerAngles = new Vector3(0f, flipDegrees, 0f);
+        }
+
+        private void DetermineAttackState(bool attackInputOnePressed)
+        {
+            if (!HasAttackBeenTriggered() && attackInputOnePressed)
             {
-                // attack
-                if (!characterAnimation.attackAnimationPlaying && !characterAnimation.powerAnimationPlaying)
-                {
-                    isUsingAttack = true;
-                }
-            }
-            else if (attackInputTwoPressed)
-            {
-                // power
-                if (!characterAnimation.attackAnimationPlaying && !characterAnimation.powerAnimationPlaying)
-                {
-                    isUsingPower = true;
-                }
+                // no trigger set and input pressed, trigger attack
+                attackTriggered = true;
             }
 
-            // check animations to turn off current action
-            if (!characterAnimation.attackAnimationPlaying && !attackInputOnePressed)
+            this.ResetAttackTrigger();
+        }
+
+        private void DeterminePowerState(bool inputPressed)
+        {
+            if (!HasAttackBeenTriggered() && inputPressed)
             {
-                isUsingAttack = false;
-            }
-            else if (!characterAnimation.powerAnimationPlaying && !attackInputTwoPressed)
-            {
-                isUsingPower = false;
+                // no trigger set and input pressed, start charging
+                powerCharging = true;
             }
 
+            this.ResetPowerCharging(inputPressed);
+        }
+
+        private void ResetAttackTrigger()
+        {
+            // attack
+            if (thisCharacterAnimation.attackAnimationPlaying)
+            {
+                // animation is playing, we can reset trigger
+                attackTriggered = false;
+            }
+        }
+
+        private void ResetPowerCharging(bool inputPressed)
+        {
+            // power
+            if (!inputPressed)
+            {
+                powerCharging = false;
+            }
         }
     }
 }
