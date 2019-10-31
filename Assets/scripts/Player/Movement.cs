@@ -2,50 +2,58 @@
 
 namespace Player
 {
-    public class Movement : MonoBehaviour
+    public class Movement : PlayerScriptMonoBehavior
     {
-        private Rigidbody2D rigidBody;
+        #region Effects 
+        public GameObject runEffect;
+        #endregion
 
-        public Vector2 currentMovement;
-        public float currentMoveSpeed = 5f;
-        public float directionX = 0.0f;
-        public float directionY = -1.0f;
-
-        public readonly float minRunSpeed = 5.0f;
-        public readonly float maxRunSpeed = 10f;
-        public readonly float runAcceleration = 10f;
-        public readonly float runDeceleration = 12f;
-
+        #region Public Variables 
         public bool isRunning = false;
         public bool isMoving = false;
 
-        void Start()
+        public float directionX = 0.0f;
+        public float directionY = -1.0f;
+        #endregion
+
+        #region Movement Variables
+        private Vector2 currentMovement;
+        private float currentMoveSpeed = 5f;
+
+        private readonly float minRunSpeed = 5.0f;
+        private readonly float maxRunSpeed = 10f;
+        private readonly float runAcceleration = 10f;
+        private readonly float runDeceleration = 12f;
+        #endregion
+
+        public void Start()
         {
-            rigidBody = this.GetComponent<Rigidbody2D>();
+            this.SetCharacterComponents();
         }
 
-        void FixedUpdate()
+        public void FixedUpdate()
         {
-            // movement here, updates 50 times per second
             // TODO: normalized is bad for controllers
-            rigidBody.MovePosition(rigidBody.position + currentMovement.normalized * currentMoveSpeed * Time.fixedDeltaTime);
+            character_RigidBody.MovePosition(character_RigidBody.position + currentMovement.normalized * currentMoveSpeed * Time.fixedDeltaTime);
         }
 
-        void Update()
+        public void Update()
         {
             var horizontalMovement = Input.GetAxisRaw("Horizontal");
             var verticalMovement = Input.GetAxisRaw("Vertical");
             var runInput = Input.GetAxisRaw("Fire3") > 0.0f;
 
-            this.SetRunState(runInput);
+            this.DetermineMovementAndDirectionalState();
+            this.DetermineRunState(runInput);
 
             this.SetDirection(horizontalMovement, verticalMovement, ref directionX, ref directionY);
             this.SetDirection(verticalMovement, horizontalMovement, ref directionY, ref directionX);
-            currentMovement = new Vector2(horizontalMovement, verticalMovement);
+            this.currentMovement = new Vector2(horizontalMovement, verticalMovement);
 
             this.isMoving = horizontalMovement > 0 || verticalMovement > 0;
         }
 
+        #region Private Methods
         private void SetDirection(float thisInputMovement, float otherInputMovement, ref float thisDirection, ref float otherDirection)
         {
             if (thisInputMovement != 0)
@@ -61,38 +69,72 @@ namespace Player
             }
         }
 
-        private void SetRunState(bool isRunning)
+        private void DetermineRunState(bool inputActive)
         {
-            // set running state
-            if (isRunning)
+            if (inputActive)
             {
-                this.isRunning = true;
+                isRunning = true;
+                character_Animator.speed = 1.5f;
 
                 // determine acceleration of speed
                 if (currentMoveSpeed < maxRunSpeed)
-                {
                     currentMoveSpeed += runAcceleration * Time.deltaTime;
-                }
                 else
-                {
                     currentMoveSpeed = maxRunSpeed;
+
+                // only emit if you're grounded and running
+                if (character_Animator.GetFloat("Speed") > 0.01)
+                {
+                    ParticleSystemRenderer dustRenderer = null;
+
+                    // create run effect
+                    if (directionY < 0)
+                    {
+                        // we are facing down, so make change the order layer of the smoke
+                        dustRenderer = runEffect.GetComponent<ParticleSystem>()?.GetComponent<ParticleSystemRenderer>();
+                        dustRenderer.sortingOrder = 4;
+                    }
+                    else
+                    {
+                        // otherwise back to 10
+                        dustRenderer = runEffect.GetComponent<ParticleSystem>()?.GetComponent<ParticleSystemRenderer>();
+                        dustRenderer.sortingOrder = 6;
+                    }
+
+                    Instantiate(runEffect, new Vector2(character_SpriteRenderer.bounds.center.x, character_SpriteRenderer.bounds.min.y), runEffect.transform.rotation);
                 }
             }
             else
             {
-                this.isRunning = false;
+                isRunning = false;
+                character_Animator.speed = 1.0f;
 
                 // determine deceleration
                 if (currentMoveSpeed > minRunSpeed)
-                {
                     currentMoveSpeed -= runDeceleration * Time.deltaTime;
-                }
                 else
-                {
                     currentMoveSpeed = minRunSpeed;
-                }
             }
         }
+
+        private void DetermineMovementAndDirectionalState()
+        {
+            if (character_Animator.GetFloat("Horizontal") != directionX)
+            {
+                if (directionX <= 0)
+                    character_SpriteRenderer.flipX = true;
+                else
+                    character_SpriteRenderer.flipX = false;
+            }
+
+            // set animation values to their cooresponding directions
+            character_Animator.SetFloat("Horizontal", directionX);
+            character_Animator.SetFloat("Vertical", directionY);
+
+            // sqrMagnitude will always be positive when we are moving
+            character_Animator.SetFloat("Speed", currentMovement.sqrMagnitude);
+        }
+        #endregion
     }
 }
 

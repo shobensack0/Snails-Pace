@@ -2,90 +2,90 @@
 
 namespace Player
 {
-    public class Attack : MonoBehaviour
+    public class Attack : PlayerScriptMonoBehavior
     {
-        private Movement thisCharacterMovement;
-        private Animation thisCharacterAnimation;
+        #region Public Properties
+        public bool isAttacking = false;
+        #endregion
 
-        private PolygonCollider2D currentWeaponCollider;
-
+        #region Weapon and Components
         public GameObject currentWeapon;
-        public GameObject currentPower;
 
-        public bool attackTriggered = false;
-        public bool powerCharging = false;
+        private Animator currentWeapon_Animator;
+        private SpriteRenderer currentWeapon_SpriteRenderer;
+        private PolygonCollider2D currentWeapon_Collider;
+        #endregion
 
-        // Start is called before the first frame update
-        void Start()
+        public void Start()
         {
-            thisCharacterMovement = this.GetComponent<Movement>();
-            thisCharacterAnimation = this.GetComponent<Animation>();
+            this.EquipWeapon(currentWeapon);
+            this.SetCharacterComponents();
+        }
 
-            if (currentWeapon != null)
+        public void Update()
+        {
+            var inputActive = Input.GetAxisRaw("Fire1") > 0.0f;
+
+            this.DetermineWeaponDirection();
+            this.DetermineAttackState(inputActive);
+        }
+
+        #region Public Methods
+
+        #endregion
+
+        #region Private Methods
+        private void DetermineAttackState(bool inputActive)
+        {
+            var isWeaponIdle = currentWeapon_Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
+
+            if (inputActive && isWeaponIdle && script_Power.AllowOtherActions())
             {
-                currentWeapon.TryGetComponent(out currentWeaponCollider);
+                currentWeapon_Animator.SetTrigger("Attack");
+                isAttacking = true;
+            }
+
+            this.ResetAttackAnimations(inputActive, isWeaponIdle);
+        }
+
+        private void EquipWeapon(GameObject weapon)
+        {
+            if (weapon == null)
+                return;
+
+            currentWeapon = weapon;
+
+            weapon.TryGetComponent<SpriteRenderer>(out currentWeapon_SpriteRenderer);
+            weapon.TryGetComponent<Animator>(out currentWeapon_Animator);
+            weapon.TryGetComponent<PolygonCollider2D>(out currentWeapon_Collider);
+        }
+
+        private void ResetAttackAnimations(bool inputActive, bool isWeaponIdle)
+        {
+            if (!inputActive && isWeaponIdle)
+            {
+                isAttacking = false;
             }
         }
 
-        void Update()
+        private void DetermineWeaponDirection()
         {
-            var attackInputOnePressed = Input.GetAxisRaw("Fire1") > 0.0f;
-            var attackInputTwoPressed = Input.GetAxisRaw("Fire2") > 0.0f;
-
-            this.DetermineAttackState(attackInputOnePressed);
-            this.DeterminePowerState(attackInputTwoPressed);
-        }
-
-        public bool HasAttackBeenTriggered()
-        {
-            return attackTriggered || powerCharging;
-        }
-
-        public void FlipWeaponCollider(float flipDegrees)
-        {
-            // TODO: not my favorite way to do this, we should be able to determine direction from here not outside (ie right now its in the animator
-            currentWeaponCollider.transform.localEulerAngles = new Vector3(0f, flipDegrees, 0f);
-        }
-
-        private void DetermineAttackState(bool attackInputOnePressed)
-        {
-            if (!HasAttackBeenTriggered() && attackInputOnePressed)
+            if (character_Animator.GetFloat("Horizontal") != script_Movement.directionX)
             {
-                // no trigger set and input pressed, trigger attack
-                attackTriggered = true;
+                if (script_Movement.directionX <= 0)
+                    currentWeapon_Collider.transform.localEulerAngles = new Vector3(0f, 180.0f, 0f);
+                else
+                    currentWeapon_Collider.transform.localEulerAngles = new Vector3(0f, 0.0f, 0f);
             }
 
-            this.ResetAttackTrigger();
-        }
-
-        private void DeterminePowerState(bool inputPressed)
-        {
-            if (!HasAttackBeenTriggered() && inputPressed)
+            if (character_Animator.GetFloat("Vertical") != script_Movement.directionY)
             {
-                // no trigger set and input pressed, start charging
-                powerCharging = true;
-            }
-
-            this.ResetPowerCharging(inputPressed);
-        }
-
-        private void ResetAttackTrigger()
-        {
-            // attack
-            if (thisCharacterAnimation.attackAnimationPlaying)
-            {
-                // animation is playing, we can reset trigger
-                attackTriggered = false;
+                if (script_Movement.directionY <= 0)
+                    currentWeapon_SpriteRenderer.sortingOrder = 6;
+                else
+                    currentWeapon_SpriteRenderer.sortingOrder = 4;
             }
         }
-
-        private void ResetPowerCharging(bool inputPressed)
-        {
-            // power
-            if (!inputPressed)
-            {
-                powerCharging = false;
-            }
-        }
+        #endregion
     }
 }
