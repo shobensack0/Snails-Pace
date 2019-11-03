@@ -1,0 +1,13 @@
+Player Sorting Order Notes
+
+0 Tree When Under Player
+1
+2
+3
+4
+5 Player
+6 Sword
+7
+8
+9
+10 Tree when above player
