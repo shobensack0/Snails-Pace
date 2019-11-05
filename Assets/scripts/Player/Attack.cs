@@ -86,6 +86,11 @@ namespace Player
                     currentWeapon_SpriteRenderer.sortingOrder = 4;
             }
         }
+
+        private bool CanAttack()
+        {
+            return !this.script_Power.isPowerActive;
+        }
         #endregion
     }
 }

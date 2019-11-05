@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerHitCollision
+  - Weapon
+  - Power
   layers:
   - Default
   - TransparentFX

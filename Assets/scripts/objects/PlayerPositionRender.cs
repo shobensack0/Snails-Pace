@@ -5,7 +5,7 @@ public class PlayerPositionRender : MonoBehaviour
     private GameObject player;
     private BoxCollider2D player_BoxCollider;
     private SpriteRenderer spriteRenderer;
-    private BoxCollider2D collider;
+    private BoxCollider2D this_Collider;
 
     void Start()
     {
@@ -17,12 +17,12 @@ public class PlayerPositionRender : MonoBehaviour
         }
 
         TryGetComponent<SpriteRenderer>(out spriteRenderer);
-        TryGetComponent<BoxCollider2D>(out collider);
+        TryGetComponent<BoxCollider2D>(out this_Collider);
     }
 
     void Update()
     {
-        if (player_BoxCollider.transform.position.y <= collider.bounds.center.y)
+        if (player_BoxCollider.transform.position.y <= this_Collider.bounds.center.y)
         {
             // render object behind player
             this.spriteRenderer.sortingOrder = 0;
