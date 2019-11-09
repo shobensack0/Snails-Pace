@@ -2,12 +2,17 @@
 
 namespace Player
 {
-    public class Player : MonoBehaviour
+    public class Player : PlayerScriptMonoBehavior
     {
+        #region Utilities
         public bool isDebug = false;
+        #endregion
 
         // Start is called before the first frame update
-        void Start() { }
+        void Start()
+        {
+            this.SetCharacterComponents();
+        }
 
         // Update is called once per frame
         void Update()

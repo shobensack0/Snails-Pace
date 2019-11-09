@@ -17,7 +17,15 @@ namespace Player
         protected Movement script_Movement;
         protected Power script_Power;
         protected Attack script_Attack;
+        protected Player script_Player;
+        protected Stats script_Stats;
         #endregion
+
+        // TODO: should this be done at the parent level?
+        //public void Start()
+        //{
+        //    this.SetCharacterComponents();
+        //}
 
         protected void SetCharacterComponents()
         {
@@ -29,6 +37,8 @@ namespace Player
             this.TryGetComponent<Movement>(out script_Movement);
             this.TryGetComponent<Power>(out script_Power);
             this.TryGetComponent<Attack>(out script_Attack);
+            this.TryGetComponent<Player>(out script_Player);
+            this.TryGetComponent<Stats>(out script_Stats);
         }
     }
 }

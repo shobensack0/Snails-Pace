@@ -71,10 +71,11 @@ namespace Player
 
         private void DetermineRunState(bool inputActive)
         {
-            if (inputActive)
+            if (inputActive && this.script_Stats.HasStamina())
             {
                 isRunning = true;
                 character_Animator.speed = 1.5f;
+                this.script_Stats.TakeStamina(1.0f);
 
                 // determine acceleration of speed
                 if (currentMoveSpeed < maxRunSpeed)
