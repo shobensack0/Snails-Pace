@@ -39,8 +39,9 @@ namespace Player
         {
             var isWeaponIdle = currentWeapon_Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
 
-            if (inputActive && isWeaponIdle && script_Power.AllowOtherActions())
+            if (inputActive && isWeaponIdle && script_Power.AllowOtherActions() && this.script_Stats.HasStamina(30.0f))
             {
+                this.script_Stats.TakeStamina(30.0f);
                 currentWeapon_Animator.SetTrigger("Attack");
                 isAttacking = true;
             }

@@ -29,7 +29,7 @@ namespace Player
         public float playerMagicIncrement = 0.0f;
 
         private bool canRegenerateStamina = true;
-        private float staminaRegenerationRate = 1.0f;
+        private float staminaRegenerationRate = .50f;
         #endregion
 
         void Start()
@@ -64,9 +64,9 @@ namespace Player
             this.UpdateStat(staminaBarFill, ref playerCurrentStamina, playerStaminaIncrement, playerMaxStamina, -amount);
         }
 
-        public bool HasStamina()
+        public bool HasStamina(float amountToTake)
         {
-            return playerCurrentStamina > 0.0f;
+            return (playerCurrentStamina - amountToTake) > 0.0f;
         }
 
         #region privates
@@ -74,11 +74,13 @@ namespace Player
         {
             var barImageFill = barFill.GetComponent<Image>();
 
-            if (barImageFill && ((currentAmount + increment) <= max))
+            if (barImageFill && ((currentAmount + amount) <= max))
             {
+                var negate = (amount < 0) ? -1 : 1;
+
                 currentAmount += amount;
                 var barRect = barImageFill.transform as RectTransform;
-                barRect.sizeDelta = new Vector2(barRect.sizeDelta.x + increment, barRect.sizeDelta.y);
+                barRect.sizeDelta = new Vector2(barRect.sizeDelta.x + (increment  * amount), barRect.sizeDelta.y);
             }
         }
 
