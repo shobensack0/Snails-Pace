@@ -11,7 +11,7 @@ namespace Player
 
         public void Update()
         {
-            var inputActive = Input.GetAxisRaw("Fire1") > 0.0f;
+            var inputActive = Input.GetMouseButtonDown(0);
 
             if (script_Player.currentWeapon)
             {

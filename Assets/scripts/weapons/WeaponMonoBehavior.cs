@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Player;
+using UnityEngine.UI;
 
 namespace Weapons
 {
@@ -50,11 +51,18 @@ namespace Weapons
         {
             var isWeaponIdle = this_Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
 
-            if (inputActive && isWeaponIdle && character_Power.AllowOtherActions() && character_Stats.HasStamina(staminaUsage))
+            if (character_Stats.HasStamina(staminaUsage))
             {
-                character_Stats.TakeStamina(staminaUsage);
-                this_Animator.SetTrigger("Attack");
-                isAttacking = true;
+                if (inputActive && isWeaponIdle && character_Power.AllowOtherActions())
+                {
+                    character_Stats.TakeStamina(staminaUsage);
+                    this_Animator.SetTrigger("Attack");
+                    isAttacking = true;
+                }
+            }
+            else
+            {
+                character_Stats.IndicateStaminaIsEmpty();
             }
 
             this.ResetAttackAnimations(inputActive, isWeaponIdle);

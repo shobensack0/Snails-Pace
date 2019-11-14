@@ -42,8 +42,8 @@ namespace Player
         
         public void Update()
         {
-            var fire_inputActive = Input.GetAxisRaw("Fire1") > 0.0f;
-            var charge_inputActive = Input.GetAxisRaw("Fire2") > 0.0f;
+            var fire_inputActive = Input.GetMouseButtonDown(0);
+            var charge_inputActive = Input.GetMouseButton(1);
             this.DeterminePowerState(charge_inputActive, fire_inputActive);
         }
 

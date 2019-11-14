@@ -32,6 +32,12 @@ namespace Player
         private float staminaRegenerationRate = .50f;
         #endregion
 
+        #region privates
+        private float flashSpeed = 20.0f;
+
+        private bool staminaIsFlashing = false;
+        #endregion
+
         void Start()
         {
             this.SetCharacterComponents();
@@ -51,6 +57,8 @@ namespace Player
 
             // always set, will update next frame if draining stamina
             canRegenerateStamina = true;
+
+            this.DetermineStaminaFlashState();
         }
 
         public void TakeDamage(float amount)
@@ -69,8 +77,23 @@ namespace Player
             return (playerCurrentStamina - amountToTake) > 0.0f;
         }
 
+        public void IndicateStaminaIsEmpty()
+        {
+            if (!staminaIsFlashing)
+            {
+                // start flashing by setting flag and incrementing flash, will go full red
+                staminaBar.TryGetComponent<Image>(out Image staminaBarImage); 
+
+                if (staminaBarImage)
+                {
+                    staminaBarImage.color = new Color(staminaBarImage.color.r, staminaBarImage.color.g - (flashSpeed * Time.deltaTime), staminaBarImage.color.b - (flashSpeed * Time.deltaTime));
+                    staminaIsFlashing = true;
+                }
+            }
+        }
+
         #region privates
-        public void UpdateStat(GameObject barFill, ref float currentAmount, float increment, float max, float amount)
+        private void UpdateStat(GameObject barFill, ref float currentAmount, float increment, float max, float amount)
         {
             var barImageFill = barFill.GetComponent<Image>();
 
@@ -96,6 +119,29 @@ namespace Player
 
                 incrementToScale = barImageRect.sizeDelta.x / max;
                 barImageFillRect.sizeDelta = new Vector2(barImageRect.sizeDelta.x - 40, barImageFillRect.sizeDelta.y);
+            }
+        }
+
+        private void DetermineStaminaFlashState()
+        {
+
+            if (staminaIsFlashing)
+            {
+                staminaBar.TryGetComponent<Image>(out Image staminaBarImage);
+                if (staminaBarImage && staminaBarImage.color.g <= 255.0f && staminaBarImage.color.b < 255.0f && staminaBarImage.color.g > 0.0f && staminaBarImage.color.b > 0.0f)
+                    staminaBarImage.color = new Color(staminaBarImage.color.r, staminaBarImage.color.g - (flashSpeed * Time.deltaTime), staminaBarImage.color.b - (flashSpeed * Time.deltaTime));
+                else
+                    staminaIsFlashing = false;
+            }
+            else
+            {
+                // Todo: move this out for a performance boost
+                staminaBar.TryGetComponent<Image>(out Image staminaBarImage);
+                if (staminaBarImage && staminaBarImage.color.g < 255.0f && staminaBarImage.color.b < 255.0f)
+                {
+                    Debug.Log("test");
+                    staminaBarImage.color = new Color(staminaBarImage.color.r, staminaBarImage.color.g + (flashSpeed * Time.deltaTime), staminaBarImage.color.b + (flashSpeed * Time.deltaTime));
+                }
             }
         }
         #endregion
