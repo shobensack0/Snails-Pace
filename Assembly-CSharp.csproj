@@ -73,6 +73,10 @@
     <Compile Include="Assets\scripts\player\Stats.cs" />
     <Compile Include="Assets\scripts\powers\PowerFire.cs" />
     <Compile Include="Assets\scripts\utility\BasicCamera.cs" />
+    <Compile Include="Assets\scripts\weapons\DamageRange.cs" />
+    <Compile Include="Assets\scripts\weapons\IronHammer.cs" />
+    <Compile Include="Assets\scripts\weapons\IronSword.cs" />
+    <Compile Include="Assets\scripts\weapons\WeaponMonoBehavior.cs" />
     <None Include="Assets\AnimationImporter\readme.txt" />
     <None Include="Assets\notes.txt" />
     <Reference Include="Unity.Timeline.Editor">

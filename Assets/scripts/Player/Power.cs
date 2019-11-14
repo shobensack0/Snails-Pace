@@ -31,7 +31,7 @@ namespace Player
         #endregion
 
         #region Power Variables
-        private float powerAnimationTime = 0.0f;
+        //private float powerAnimationTime = 0.0f;
         #endregion
 
         public void Start()

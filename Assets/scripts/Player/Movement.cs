@@ -13,7 +13,7 @@ namespace Player
         public bool isMoving = false;
 
         public float directionX = 0.0f;
-        public float directionY = -1.0f;
+        public float directionY = 0.0f;
         #endregion
 
         #region Movement Variables
@@ -29,6 +29,11 @@ namespace Player
         public void Start()
         {
             this.SetCharacterComponents();
+
+            // TODO: better way to set default so we can set it dynamically?
+            // ALSO TODO: character horizontal isn't getting set right away for some reason, which is messing with weapon animation direction??!!
+            character_Animator.SetFloat("Horizontal", 1.0f);
+            character_Animator.SetFloat("Vertical", -1.0f);
         }
 
         public void FixedUpdate()
