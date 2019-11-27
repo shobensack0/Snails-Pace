@@ -290,7 +290,6 @@ E:\Snails Pace\Temp\bin\Debug\UnityEngine.VehiclesModule.xml
 E:\Snails Pace\Temp\bin\Debug\UnityEngine.VideoModule.xml
 E:\Snails Pace\Temp\bin\Debug\UnityEngine.WindModule.xml
 E:\Snails Pace\Temp\bin\Debug\UnityEngine.XRModule.xml
-E:\Snails Pace\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 E:\Snails Pace\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 E:\Snails Pace\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 E:\Snails Pace\obj\Debug\Assembly-CSharp.dll

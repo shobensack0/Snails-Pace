@@ -11,6 +11,9 @@ namespace Weapons
         public float staminaUsage;
 
         public DamageRange damageRange;
+
+        private float hitAnimationCooldownMax = 0.05f;
+        private float currentHitAnimationCooldown = 0.0f;
         #endregion
 
         #region Weapon
@@ -49,6 +52,15 @@ namespace Weapons
 
         public virtual void DetermineAttackState(bool inputActive)
         {
+            if (currentHitAnimationCooldown >= 0.0f)
+            {
+                currentHitAnimationCooldown -= 0.5f * Time.deltaTime;
+            }
+            else
+            {
+                this_Animator.speed = 1.5f;
+            }
+
             var isWeaponIdle = this_Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
 
             if (character_Stats.HasStamina(staminaUsage))
@@ -59,10 +71,6 @@ namespace Weapons
                     this_Animator.SetTrigger("Attack");
                     isAttacking = true;
                 }
-            }
-            else
-            {
-                character_Stats.IndicateStaminaIsEmpty();
             }
 
             this.ResetAttackAnimations(inputActive, isWeaponIdle);
@@ -102,6 +110,17 @@ namespace Weapons
                 this_SpriteRenderer.sortingOrder = 6;
             else
                 this_SpriteRenderer.sortingOrder = 4;
+        }
+
+
+        void OnCollisionEnter2D(Collision2D other)
+        {
+            Debug.Log(other.transform.tag);
+            if (other.gameObject.tag == "Enemy" && currentHitAnimationCooldown <= 0.0f)
+            {
+                this_Animator.speed = 0;
+                currentHitAnimationCooldown = hitAnimationCooldownMax;
+            }
         }
         #endregion
     }

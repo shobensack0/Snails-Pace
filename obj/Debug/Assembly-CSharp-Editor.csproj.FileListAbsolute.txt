@@ -220,7 +220,6 @@ E:\Snails Pace\Temp\bin\Debug\Boo.Lang.PatternMatching.dll
 E:\Snails Pace\Temp\bin\Debug\Boo.Lang.Parser.dll
 E:\Snails Pace\Temp\bin\Debug\Boo.Lang.Useful.dll
 E:\Snails Pace\Temp\bin\Debug\Unity.CecilTools.dll
-E:\Snails Pace\Temp\bin\Debug\Assembly-CSharp.pdb
 E:\Snails Pace\Temp\bin\Debug\UnityEngine.xml
 E:\Snails Pace\Temp\bin\Debug\UnityEditor.xml
 E:\Snails Pace\Temp\bin\Debug\UnityEditor.TestRunner.pdb

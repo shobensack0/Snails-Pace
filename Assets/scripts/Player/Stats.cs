@@ -50,6 +50,8 @@ namespace Player
 
         void Update()
         {
+            this.DetermineStaminaBarColor();
+
             if (canRegenerateStamina && playerCurrentStamina < playerMaxStamina)
             {
                 this.UpdateStat(staminaBarFill, ref playerCurrentStamina, playerStaminaIncrement, playerMaxStamina, staminaRegenerationRate);
@@ -57,8 +59,6 @@ namespace Player
 
             // always set, will update next frame if draining stamina
             canRegenerateStamina = true;
-
-            this.DetermineStaminaFlashState();
         }
 
         public void TakeDamage(float amount)
@@ -75,21 +75,6 @@ namespace Player
         public bool HasStamina(float amountToTake)
         {
             return (playerCurrentStamina - amountToTake) > 0.0f;
-        }
-
-        public void IndicateStaminaIsEmpty()
-        {
-            if (!staminaIsFlashing)
-            {
-                // start flashing by setting flag and incrementing flash, will go full red
-                staminaBar.TryGetComponent<Image>(out Image staminaBarImage); 
-
-                if (staminaBarImage)
-                {
-                    staminaBarImage.color = new Color(staminaBarImage.color.r, staminaBarImage.color.g - (flashSpeed * Time.deltaTime), staminaBarImage.color.b - (flashSpeed * Time.deltaTime));
-                    staminaIsFlashing = true;
-                }
-            }
         }
 
         #region privates
@@ -122,27 +107,37 @@ namespace Player
             }
         }
 
-        private void DetermineStaminaFlashState()
+        private void DetermineStaminaBarColor()
         {
 
-            if (staminaIsFlashing)
+            if (playerCurrentStamina < playerMaxStamina)
             {
                 staminaBar.TryGetComponent<Image>(out Image staminaBarImage);
-                if (staminaBarImage && staminaBarImage.color.g <= 255.0f && staminaBarImage.color.b < 255.0f && staminaBarImage.color.g > 0.0f && staminaBarImage.color.b > 0.0f)
-                    staminaBarImage.color = new Color(staminaBarImage.color.r, staminaBarImage.color.g - (flashSpeed * Time.deltaTime), staminaBarImage.color.b - (flashSpeed * Time.deltaTime));
-                else
-                    staminaIsFlashing = false;
+                staminaBarFill.TryGetComponent<Image>(out Image staminaBarImageFill);
+
+                // stamina
+                var maxStaminaBarRatio = (255 / playerMaxStamina) * playerCurrentStamina;
+                staminaBarImage.color = new Color(staminaBarImage.color.r, maxStaminaBarRatio * Time.deltaTime, staminaBarImage.color.b);
+                staminaBarImageFill.color = new Color(staminaBarImage.color.r, maxStaminaBarRatio * Time.deltaTime, staminaBarImage.color.b);
             }
-            else
-            {
-                // Todo: move this out for a performance boost
-                staminaBar.TryGetComponent<Image>(out Image staminaBarImage);
-                if (staminaBarImage && staminaBarImage.color.g < 255.0f && staminaBarImage.color.b < 255.0f)
-                {
-                    Debug.Log("test");
-                    staminaBarImage.color = new Color(staminaBarImage.color.r, staminaBarImage.color.g + (flashSpeed * Time.deltaTime), staminaBarImage.color.b + (flashSpeed * Time.deltaTime));
-                }
-            }
+
+            //    if (staminaIsFlashing)
+            //{
+                
+            //        staminaBarImage.color = new Color(staminaBarImage.color.r, staminaBarImage.color.g - (flashSpeed * Time.deltaTime), staminaBarImage.color.b - (flashSpeed * Time.deltaTime));
+            //    else
+            //        staminaIsFlashing = false;
+            //}
+            //else
+            //{
+            //    // Todo: move this out for a performance boost
+            //    staminaBar.TryGetComponent<Image>(out Image staminaBarImage);
+            //    if (staminaBarImage && staminaBarImage.color.g < 255.0f && staminaBarImage.color.b < 255.0f)
+            //    {
+            //        Debug.Log("test");
+            //        staminaBarImage.color = new Color(staminaBarImage.color.r, staminaBarImage.color.g + (flashSpeed * Time.deltaTime), staminaBarImage.color.b + (flashSpeed * Time.deltaTime));
+            //    }
+            //}
         }
         #endregion
     }
