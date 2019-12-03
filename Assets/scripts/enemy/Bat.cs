@@ -16,6 +16,7 @@ namespace Enemy
         private PolygonCollider2D enemy_Collider;
         private Animator enemy_Animator;
         private SpriteRenderer enemy_SpriteRenderer;
+        private Rigidbody2D enemy_RigidBody;
 
         private float maxHitCooldown = 0.25f;
         private float hitCooldown = 1.0f;
@@ -29,6 +30,7 @@ namespace Enemy
             TryGetComponent<PolygonCollider2D>(out enemy_Collider);
             TryGetComponent<Animator>(out enemy_Animator);
             TryGetComponent<SpriteRenderer>(out enemy_SpriteRenderer);
+            TryGetComponent<Rigidbody2D>(out enemy_RigidBody);
         }
 
         void Update()
@@ -45,11 +47,16 @@ namespace Enemy
             }
         }
 
-
-        void OnCollisionEnter2D(Collision2D other)
+        void OnTriggerEnter2D(Collider2D collision)
         {
-            if (other.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Weapon")
             {
+
+                var magnitude = 500f;
+                Vector2 force = transform.position - collision.transform.position;
+                force.Normalize();
+                this.enemy_RigidBody.AddForce(force * magnitude);
+
                 enemy_Animator.speed = 0.25f;
                 enemy_SpriteRenderer.color = Color.red;
                 currentHitCooldown = maxHitCooldown;

@@ -113,14 +113,14 @@ namespace Weapons
         }
 
 
-        void OnCollisionEnter2D(Collision2D other)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log(other.transform.tag);
-            if (other.gameObject.tag == "Enemy" && currentHitAnimationCooldown <= 0.0f)
-            {
+            // TODO: should this be all triggers or just certain ones, who knows?!
+            //if (collision.gameObject.tag == "Enemy" && currentHitAnimationCooldown <= 0.0f)
+            //{
                 this_Animator.speed = 0;
                 currentHitAnimationCooldown = hitAnimationCooldownMax;
-            }
+            //}
         }
         #endregion
     }
