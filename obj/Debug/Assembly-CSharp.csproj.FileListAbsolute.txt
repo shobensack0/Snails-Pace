@@ -589,3 +589,4 @@ C:\Users\shane.hobensack\Documents\game\Snails Pace\obj\Debug\Assembly-CSharp.cs
 C:\Users\shane.hobensack\Documents\game\Snails Pace\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\shane.hobensack\Documents\game\Snails Pace\obj\Debug\Assembly-CSharp.dll
 C:\Users\shane.hobensack\Documents\game\Snails Pace\obj\Debug\Assembly-CSharp.pdb
+E:\Snails Pace\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache

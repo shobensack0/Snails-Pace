@@ -619,3 +619,4 @@ C:\Users\shane.hobensack\Documents\game\Snails Pace\obj\Debug\Assembly-CSharp-Ed
 C:\Users\shane.hobensack\Documents\game\Snails Pace\obj\Debug\Assembly-CSharp-Editor.csproj.CopyComplete
 C:\Users\shane.hobensack\Documents\game\Snails Pace\obj\Debug\Assembly-CSharp-Editor.dll
 C:\Users\shane.hobensack\Documents\game\Snails Pace\obj\Debug\Assembly-CSharp-Editor.pdb
+E:\Snails Pace\Temp\bin\Debug\Assembly-CSharp.pdb
