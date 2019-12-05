@@ -56,11 +56,14 @@ namespace Ai.Goap
         {
             var foundOne = false;
 
-            // go throug heach action available at this node and see if we can use it here
+            // go through each action available at this node and see if we can use it here
             foreach(var action in usableActions)
             {
-                // if the parent state has the conditions for this actions preconditions, we cn use it here
-                if (inState)
+                // if the parent state has the conditions for this actions preconditions, we can use it here
+                if (InState(action.Preconditions, parent.state))
+                {
+                    var currentState = PopulateState(parent.state, action.Effects);
+                }
             }
         }
 
