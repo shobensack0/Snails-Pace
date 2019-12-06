@@ -1,49 +1,81 @@
-﻿using System.Collections.Generic;
-using Ai;
+﻿using Ai;
+using System.Collections.Generic;
 using UnityEngine;
+using Weapons;
 
 namespace Enemy
 {
-    public abstract class Enemy : MonoBehaviour, IGoap
+    public abstract class Enemy : EnemyMonoBehaviour, IGoap
     {
-        public int health;
-        public int strength;
-        public int speed;
-        public Vector3 moveDirection;
 
-        private float maxHitCooldown = 0.25f;
-        private float hitCooldown = 1.0f;
-        private float currentHitCooldown = 0.0f;
+        #region Stats
+        protected int health;
+        protected int strength;
+        protected int speed;
+        #endregion
 
+        #region Movement Variables
         protected float terminalSpeed;
         protected float initialSpeed;
         protected float acceleration;
-        protected float minDist = 1.5f;
-        protected float aggroDist = 5f;
+
+        protected Vector3 moveDirection;
+        #endregion
+
+        #region Hit Tracking
+        protected float maxHitCooldown = 0.25f;
+        protected float hitCooldown = 1.0f;
+        protected float currentHitCooldown = 0.0f;
+        protected bool takingDamage = false;
+
+        protected bool isDead = false;
+        #endregion
+
+        #region AI
+        protected float minDist;
+        protected float aggroDist;
         protected bool loop = false;
+        #endregion
 
-        protected GameObject player;
+        #region Abstract Methods
+        public abstract void Kill();
 
-        protected PolygonCollider2D enemy_Collider;
-        protected Animator enemy_Animator;
-        protected SpriteRenderer enemy_SpriteRenderer;
-        protected Rigidbody2D enemy_RigidBody;
+        public abstract HashSet<KeyValuePair<string, object>> CreateGoalState();
+        public abstract void PlanFailed(HashSet<KeyValuePair<string, object>> failedGoal);
+        public abstract void PlanFound(HashSet<KeyValuePair<string, object>> goal, Queue<GoapAction> action);
+        public abstract void ActionsFinished();
+        public abstract void PlanAborted(GoapAction aborter);
+        #endregion
 
         // Update is called once per frame
         public virtual void Update()
         {
-            if (currentHitCooldown > 0.0f)
+            DetermineHitStatusAndCooldown();
+            CheckHealth();
+        }
+
+        public void CheckDeathState()
+        {
+            if (isDead && character_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             {
-                currentHitCooldown -= hitCooldown * Time.deltaTime;
-            }
-            else
-            {
-                enemy_Animator.speed = 1.0f;
-                enemy_SpriteRenderer.color = Color.white;
+                Destroy(this.gameObject);
             }
         }
 
-        public HashSet<KeyValuePair<string, object>> getWorldState()
+        public void CheckHealth()
+        {
+            CheckDeathState();
+
+            Debug.Log(health + " ");
+            if (health <= 0)
+            {
+                this.isDead = true;
+                Kill();
+            }
+        }
+
+
+        public HashSet<KeyValuePair<string, object>> GetWorldState()
         {
             HashSet<KeyValuePair<string, object>> worldData = new HashSet<KeyValuePair<string, object>>();
             worldData.Add(new KeyValuePair<string, object>("damagePlayer", false)); //to-do: change player's state for world data here
@@ -51,29 +83,7 @@ namespace Enemy
             return worldData;
         }
 
-        public abstract HashSet<KeyValuePair<string, object>> createGoalState();
-
-        public void planFailed(HashSet<KeyValuePair<string, object>> failedGoal)
-        {
-
-        }
-
-        public void planFound(HashSet<KeyValuePair<string, object>> goal, Queue<GoapAction> action)
-        {
-
-        }
-
-        public void actionsFinished()
-        {
-
-        }
-
-        public void planAborted(GoapAction aborter)
-        {
-
-        }
-
-        public void setSpeed(float val)
+        public void SetSpeed(float val)
         {
             terminalSpeed = val / 10;
             initialSpeed = (val / 10) / 2;
@@ -81,29 +91,38 @@ namespace Enemy
             return;
         }
 
-        void OnTriggerEnter2D(Collider2D collision)
+        public virtual void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.tag == "Weapon")
             {
                 var magnitude = 500f;
                 var force = transform.position - collision.transform.position;
                 force.Normalize();
-                this.enemy_RigidBody.AddForce(force * magnitude);
+                this.characte_RigidBody.AddForce(force * magnitude);
 
-                enemy_Animator.speed = 0.25f;
-                enemy_SpriteRenderer.color = Color.red;
+                character_Animator.speed = 0.25f;
+                character_SpriteRenderer.color = Color.red;
                 currentHitCooldown = maxHitCooldown;
+
+                collision.gameObject.TryGetComponent<WeaponMonoBehavior>(out WeaponMonoBehavior weapon);
+
+                this.health -= Mathf.RoundToInt(weapon.damageRange.GetDamageAmount());
+
+                takingDamage = true;
             }
         }
 
-        public virtual bool moveAgent(GoapAction nextAction)
+        public virtual bool MoveAgent(GoapAction nextAction)
         {
+            if (isDead)
+                return false;
+
             var dist = Vector3.Distance(transform.position, nextAction.target.transform.position);
 
             if (dist < aggroDist)
             {
                 moveDirection = player.transform.position - transform.position;
-                setSpeed(speed);
+                SetSpeed(speed);
 
                 if (initialSpeed < terminalSpeed)
                 {
@@ -114,7 +133,8 @@ namespace Enemy
                 transform.position += newPosition;
             }
 
-            DetermineMovementAndDirectionalState(moveDirection, initialSpeed);
+            if (moveDirection != null)
+                DetermineMovementAndDirectionalState(moveDirection, initialSpeed);
 
             if (dist <= minDist)
             {
@@ -131,20 +151,37 @@ namespace Enemy
 
         private void DetermineMovementAndDirectionalState(Vector3 direction, float speed)
         {
-            if (enemy_Animator.GetFloat("Horizontal") != direction.x)
+            if (character_Animator.GetFloat("Horizontal") != direction.x)
             {
                 if (direction.x <= 0)
-                    enemy_SpriteRenderer.flipX = true;
+                    character_SpriteRenderer.flipX = true;
                 else
-                    enemy_SpriteRenderer.flipX = false;
+                    character_SpriteRenderer.flipX = false;
             }
 
             // set animation values to their cooresponding directions
-            enemy_Animator.SetFloat("Horizontal", direction.x);
-            enemy_Animator.SetFloat("Vertical", direction.y);
+            character_Animator.SetFloat("Horizontal", direction.x);
+            character_Animator.SetFloat("Vertical", direction.y);
 
             // sqrMagnitude will always be positive when we are moving
-            enemy_Animator.SetFloat("Speed", speed);
+            character_Animator.SetFloat("Speed", speed);
+        }
+
+        private void DetermineHitStatusAndCooldown()
+        {
+            if (takingDamage)
+            {
+                if (currentHitCooldown > 0.0f)
+                {
+                    currentHitCooldown -= hitCooldown * Time.deltaTime;
+                }
+                else
+                {
+                    takingDamage = false;
+                    character_Animator.speed = 1.0f;
+                    character_SpriteRenderer.color = Color.white;
+                }
+            }
         }
     }
 }

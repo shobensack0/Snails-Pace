@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 666}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -111,10 +111,10 @@ MonoBehaviour:
     y: 30
     width: 2560
     height: 1307
-  m_MinSize: {x: 683, y: 616}
-  m_MaxSize: {x: 14004, y: 18066}
+  m_MinSize: {x: 681, y: 616}
+  m_MaxSize: {x: 14002, y: 18066}
   vertical: 0
-  controlID: 91
+  controlID: 178
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 616}
   m_MaxSize: {x: 10002, y: 18066}
   vertical: 1
-  controlID: 92
+  controlID: 64
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 344}
   m_MaxSize: {x: 8006, y: 8044}
   vertical: 0
-  controlID: 93
+  controlID: 65
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 344}
   m_MaxSize: {x: 4004, y: 8044}
   vertical: 1
-  controlID: 94
+  controlID: 66
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -316,8 +316,8 @@ MonoBehaviour:
     y: 0
     width: 538
     height: 1307
-  m_MinSize: {x: 277, y: 72}
-  m_MaxSize: {x: 4002, y: 4022}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -434,20 +434,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 24340000
+      m_SelectedIDs: 8eb0ffff
       m_LastClickedID: 0
-      m_ExpandedIDs: 6afbffff
+      m_ExpandedIDs: 6afbffffa43d0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Bat
-        m_OriginalName: Bat
+        m_Name: Hulk
+        m_OriginalName: Hulk
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -1264
+        m_UserData: 15752
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -496,9 +496,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.22750424, y: 0.23735273, z: -1.579969}
+    m_Target: {x: 5.9942183, y: -0.7212372, z: -61.96875}
     speed: 2
-    m_Value: {x: -0.22750424, y: 0.23735273, z: -1.579969}
+    m_Value: {x: 5.9942183, y: -0.7212372, z: -61.96875}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -531,9 +531,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 11.130584
+    m_Target: 16.590889
     speed: 2
-    m_Value: 11.130584
+    m_Value: 16.590889
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -600,6 +600,7 @@ MonoBehaviour:
     - {fileID: 5007929203738147691, guid: 480a891e89d3f8549a1e54766ff9307d, type: 2}
     - {fileID: -6311573037379049737, guid: 480a891e89d3f8549a1e54766ff9307d, type: 2}
     - {fileID: -6461188819246620145, guid: c871270a290ce8442946eccffc1b00c2, type: 2}
+    - {fileID: -6479581725776850368, guid: 480a891e89d3f8549a1e54766ff9307d, type: 2}
     m_ValueSerializationHelper:
     - e00: 1
       e01: 0
@@ -732,11 +733,11 @@ MonoBehaviour:
     - e00: 1
       e01: 0
       e02: 0
-      e03: 11.5
+      e03: -132.5
       e10: 0
       e11: 1
       e12: 0
-      e13: 81
+      e13: 85
       e20: 0
       e21: 0
       e22: 1
@@ -748,11 +749,11 @@ MonoBehaviour:
     - e00: 1
       e01: 0
       e02: 0
-      e03: 191.5
+      e03: -107
       e10: 0
       e11: 1
       e12: 0
-      e13: 106
+      e13: 73
       e20: 0
       e21: 0
       e22: 1
@@ -809,6 +810,22 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
+    - e00: 1
+      e01: 0
+      e02: 0
+      e03: 58.5
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 172
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
   m_PreviewAnimator: {fileID: 0}
   m_AnimatorController: {fileID: 9100000, guid: 480a891e89d3f8549a1e54766ff9307d,
     type: 2}
@@ -855,7 +872,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 27492
+  m_LastSelectedObjectID: -1264
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -895,20 +912,20 @@ MonoBehaviour:
     m_SkipHidden: 1
     m_SearchArea: 1
     m_Folders:
-    - Assets/prefabs/effects
+    - Assets/animations/enemy/Hulk/Animations
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/prefabs/effects
+  - Assets/animations/enemy/Hulk/Animations
   m_LastFoldersGridSize: 96
   m_LastProjectPath: E:\Snails Pace
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 137}
-    m_SelectedIDs: 62310000
-    m_LastClickedID: 12642
-    m_ExpandedIDs: 00000000362f0000c62f000002300000e6310000463400005c3400002837000064370000943700008238000092380000683b0000663c0000fc3e0000fe3e0000003f0000023f0000043f0000063f000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: f6300000
+    m_LastClickedID: 12534
+    m_ExpandedIDs: 000000003e2f0000ce2f00000a300000ec3100004c340000423700007e370000b0370000a0380000b0380000763b0000743c0000183f00001a3f00001c3f00001e3f0000203f0000223f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -936,7 +953,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000362f0000c62f000002300000643700009437000082380000683b0000663c0000fc3e0000fe3e0000003f0000023f0000043f0000063f0000
+    m_ExpandedIDs: 000000003e2f0000ce2f00000a300000ec3100004c340000423700007e370000b0370000a0380000b0380000763b0000743c0000183f00001a3f00001c3f00001e3f0000203f0000223f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -964,7 +981,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000e84d0000462f0000aa3e00002c33000030360000343e0000743a00006437000024330000dc460000ec360000fc390000
+    m_ExpandedInstanceIDs: c6230000e84d0000462f0000aa3e00002c33000030360000343e0000743a00006437000024330000dc460000ec360000fc39000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

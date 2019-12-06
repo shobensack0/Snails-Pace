@@ -11,9 +11,9 @@ namespace Weapons
                 staminaUsage = 50.0f;
             }
 
-            if (damageRange == null || damageRange.max == 0.0f)
+            if (damageRange == null || damageRange.max == 0)
             {
-                damageRange = new DamageRange(30.0f, 45.0f);
+                damageRange = new DamageRange(30, 45);
             }
         }
 

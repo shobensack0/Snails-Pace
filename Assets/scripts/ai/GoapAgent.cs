@@ -71,21 +71,21 @@ namespace Ai
         {
             idleState = (fsm, obj) => {
 
-                HashSet<KeyValuePair<string, object>> worldState = dataProvider.getWorldState();
-                HashSet<KeyValuePair<string, object>> goal = dataProvider.createGoalState();
+                HashSet<KeyValuePair<string, object>> worldState = dataProvider.GetWorldState();
+                HashSet<KeyValuePair<string, object>> goal = dataProvider.CreateGoalState();
 
                 Queue<GoapAction> plan = planner.plan(gameObject, availableActions, worldState, goal);
                 if (plan != null)
                 {
                     currentActions = plan;
-                    dataProvider.planFound(goal, plan);
+                    dataProvider.PlanFound(goal, plan);
 
                     fsm.popState();
                     fsm.pushState(performActionState);
                 }
                 else
                 {
-                    dataProvider.planFailed(goal);
+                    dataProvider.PlanFailed(goal);
                     fsm.popState();
                     fsm.pushState(idleState);
                 }
@@ -105,7 +105,7 @@ namespace Ai
                     return;
                 }
 
-                if (dataProvider.moveAgent(action))
+                if (dataProvider.MoveAgent(action))
                 {
                     fsm.popState();
                 }
@@ -122,7 +122,7 @@ namespace Ai
                 {
                     fsm.popState();
                     fsm.pushState(idleState);
-                    dataProvider.actionsFinished();
+                    dataProvider.ActionsFinished();
                     return;
                 }
 
@@ -145,7 +145,7 @@ namespace Ai
                             fsm.popState();
                             fsm.pushState(idleState);
                             createIdleState();
-                            dataProvider.planAborted(action);
+                            dataProvider.PlanAborted(action);
                         }
                     }
                     else
@@ -157,7 +157,7 @@ namespace Ai
                 {
                     fsm.popState();
                     fsm.pushState(idleState);
-                    dataProvider.actionsFinished();
+                    dataProvider.ActionsFinished();
                 }
             };
         }

@@ -4,24 +4,24 @@ namespace Weapons
 {
     public class DamageRange
     {
-        public float min;
-        public float max;
+        public int min;
+        public int max;
 
-        public DamageRange(float max)
+        public DamageRange(int max)
         {
             min = 0;
             this.max = max;
         }
 
-        public DamageRange(float min, float max)
+        public DamageRange(int min, int max)
         {
             this.min = min;
             this.max = max;
         }
 
-        public float GetDamageAmount()
+        public int GetDamageAmount()
         {
-            return Mathf.Ceil(Random.Range(min, max));
+            return Random.Range(min, max);
         }
     }
 }

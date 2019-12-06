@@ -5,7 +5,7 @@ namespace Player
     /// <summary>
     /// Stuff you'll need everywhere
     /// </summary>
-    public class PlayerScriptMonoBehavior  : MonoBehaviour
+    public class PlayerScriptMonoBehavior : MonoBehaviour
     {
         #region Character and Components
         protected Animator character_Animator;
@@ -20,12 +20,6 @@ namespace Player
         protected Player script_Player;
         protected Stats script_Stats;
         #endregion
-
-        // TODO: should this be done at the parent level?
-        //public void Start()
-        //{
-        //    this.SetCharacterComponents();
-        //}
 
         protected void SetCharacterComponents()
         {
