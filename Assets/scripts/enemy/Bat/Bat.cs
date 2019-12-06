@@ -1,30 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Ai;
+using UnityEngine;
 
 namespace Enemy.Bat
 {
-    public class Bat : MonoBehaviour
+    public class Bat : Enemy
     {
-        #region Public stuff
-        public float speed;
-        #endregion 
-
-        #region Player Stuff
-        private GameObject player;
-        #endregion
-
-        #region Enemy Stuff
-        private PolygonCollider2D enemy_Collider;
-        private Animator enemy_Animator;
-        private SpriteRenderer enemy_SpriteRenderer;
-        private Rigidbody2D enemy_RigidBody;
-
-        private float maxHitCooldown = 0.25f;
-        private float hitCooldown = 1.0f;
-        private float currentHitCooldown = 0.0f;
-        #endregion
-
         void Start()
         {
+            health = 50;
+            speed = 20;
+            strength = 10;
+
+            terminalSpeed = speed / 10;
+            initialSpeed = (speed / 10) / 2;
+            acceleration = (speed / 10) / 4;
+
+
             player = GameObject.FindGameObjectWithTag("Player");
 
             TryGetComponent<PolygonCollider2D>(out enemy_Collider);
@@ -33,34 +25,12 @@ namespace Enemy.Bat
             TryGetComponent<Rigidbody2D>(out enemy_RigidBody);
         }
 
-        void Update()
+        public override HashSet<KeyValuePair<string, object>> createGoalState()
         {
-            if (currentHitCooldown > 0.0f)
-            {
-                currentHitCooldown -= hitCooldown * Time.deltaTime;
-            }
-            else
-            {
-                enemy_Animator.speed = 1.0f;
-                enemy_SpriteRenderer.color = Color.white;
-                this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, speed);
-            }
-        }
-
-        void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.gameObject.tag == "Weapon")
-            {
-
-                var magnitude = 500f;
-                Vector2 force = transform.position - collision.transform.position;
-                force.Normalize();
-                this.enemy_RigidBody.AddForce(force * magnitude);
-
-                enemy_Animator.speed = 0.25f;
-                enemy_SpriteRenderer.color = Color.red;
-                currentHitCooldown = maxHitCooldown;
-            }
+            HashSet<KeyValuePair<string, object>> goal = new HashSet<KeyValuePair<string, object>>();
+            goal.Add(new KeyValuePair<string, object>("damagePlayer", true));
+            goal.Add(new KeyValuePair<string, object>("stayAlive", true));
+            return goal;
         }
     }
 }

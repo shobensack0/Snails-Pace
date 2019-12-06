@@ -11,7 +11,23 @@ namespace Enemy.Bat
         public BatAttackAction()
         {
             addEffect("damagePlayer", true);
-            cost = 100.0f;
+            cost = 100f;
+        }
+
+        public override void reset()
+        {
+            attacked = false;
+            target = null;
+        }
+
+        public override bool isDone()
+        {
+            return attacked;
+        }
+
+        public override bool requiresInRange()
+        {
+            return true;
         }
 
         public override bool checkProceduralPrecondition(GameObject agent)
@@ -20,28 +36,10 @@ namespace Enemy.Bat
             return target != null;
         }
 
-        public override bool isDone()
-        {
-            return attacked;
-        }
-
         public override bool perform(GameObject agent)
         {
-            var currBat = agent.GetComponent<BatV2>();
-
-            // play attack animation
-            return true;
-        }
-
-        public override bool requiresInRange()
-        {
-            return true;
-        }
-
-        public override void reset()
-        {
-            attacked = false;
-            target = null;
+            Bat currWolf = agent.GetComponent<Bat>();
+            return false;
         }
     }
 }

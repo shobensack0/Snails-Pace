@@ -69,9 +69,11 @@
     <Compile Include="Assets\scripts\ai\GoapPlanner.cs" />
     <Compile Include="Assets\scripts\ai\IGoap.cs" />
     <Compile Include="Assets\scripts\enemy\Bat\Bat.cs" />
+    <Compile Include="Assets\scripts\enemy\Bat\Bat_OLD.cs" />
     <Compile Include="Assets\scripts\enemy\Bat\BatAttackAction.cs" />
-    <Compile Include="Assets\scripts\enemy\Bat\BatV2.cs" />
     <Compile Include="Assets\scripts\enemy\Enemy.cs" />
+    <Compile Include="Assets\scripts\enemy\hulk\Hulk.cs" />
+    <Compile Include="Assets\scripts\enemy\hulk\HulkAttackAction.cs" />
     <Compile Include="Assets\scripts\objects\PlayerPositionRender.cs" />
     <Compile Include="Assets\scripts\player\Attack.cs" />
     <Compile Include="Assets\scripts\player\Movement.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Assets\scripts\player\Stats.cs" />
     <Compile Include="Assets\scripts\powers\PowerFire.cs" />
     <Compile Include="Assets\scripts\utility\BasicCamera.cs" />
+    <Compile Include="Assets\scripts\utility\Destroy.cs" />
     <Compile Include="Assets\scripts\weapons\DamageRange.cs" />
     <Compile Include="Assets\scripts\weapons\IronHammer.cs" />
     <Compile Include="Assets\scripts\weapons\IronSword.cs" />

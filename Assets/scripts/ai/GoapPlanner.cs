@@ -3,12 +3,8 @@ using UnityEngine;
 
 namespace Ai
 {
-    /**
-  * Plans what actions can be completed in order to fulfill a goal state.
-  */
-    public class GoapPlanner
+    public class GOAPPlanner
     {
-
         /**
          * Plan what sequence of actions can fulfill the goal.
          * Returns null if a plan could not be found, or a list of the actions
@@ -45,7 +41,7 @@ namespace Ai
             if (!success)
             {
                 // oh no, we didn't get a plan
-                Debug.Log("NO PLAN");
+                //Debug.Log("NO PLAN");
                 return null;
             }
 
@@ -91,7 +87,7 @@ namespace Ai
          * 'runningCost' value where the lowest cost will be the best action
          * sequence.
          */
-        private bool buildGraph(Node parent, List<Node> leaves, HashSet<GoapAction> usableActions, HashSet<KeyValuePair<string, object>> goal)
+        protected bool buildGraph(Node parent, List<Node> leaves, HashSet<GoapAction> usableActions, HashSet<KeyValuePair<string, object>> goal)
         {
             bool foundOne = false;
 
@@ -108,7 +104,7 @@ namespace Ai
                     //Debug.Log(GoapAgent.prettyPrint(currentState));
                     Node node = new Node(parent, parent.runningCost + action.cost, currentState, action);
 
-                    if (inState(goal, currentState))
+                    if (goalInState(goal, currentState))
                     {
                         // we found a solution!
                         leaves.Add(node);
@@ -116,12 +112,14 @@ namespace Ai
                     }
                     else
                     {
-                        // not at a solution yet, so test all the remaining actions and branch out the tree
+                        // test all the remaining actions and branch out the tree
                         HashSet<GoapAction> subset = actionSubset(usableActions, action);
                         bool found = buildGraph(node, leaves, subset, goal);
                         if (found)
                             foundOne = true;
                     }
+
+
                 }
             }
 
@@ -131,7 +129,7 @@ namespace Ai
         /**
          * Create a subset of the actions excluding the removeMe one. Creates a new set.
          */
-        private HashSet<GoapAction> actionSubset(HashSet<GoapAction> actions, GoapAction removeMe)
+        protected HashSet<GoapAction> actionSubset(HashSet<GoapAction> actions, GoapAction removeMe)
         {
             HashSet<GoapAction> subset = new HashSet<GoapAction>();
             foreach (GoapAction a in actions)
@@ -142,11 +140,32 @@ namespace Ai
             return subset;
         }
 
-        /**
+        /*
+         * Checks if at least one goal is met. 
+         * to-do: Create a system for weighting towards paths that fulfill more goals
+         */
+        protected bool goalInState(HashSet<KeyValuePair<string, object>> test, HashSet<KeyValuePair<string, object>> state)
+        {
+            bool match = false;
+            foreach (KeyValuePair<string, object> t in test)
+            {
+                foreach (KeyValuePair<string, object> s in state)
+                {
+                    if (s.Equals(t))
+                    {
+                        match = true;
+                        break;
+                    }
+                }
+            }
+            return match;
+        }
+
+        /*
          * Check that all items in 'test' are in 'state'. If just one does not match or is not there
          * then this returns false.
          */
-        private bool inState(HashSet<KeyValuePair<string, object>> test, HashSet<KeyValuePair<string, object>> state)
+        protected bool inState(HashSet<KeyValuePair<string, object>> test, HashSet<KeyValuePair<string, object>> state)
         {
             bool allMatch = true;
             foreach (KeyValuePair<string, object> t in test)
@@ -169,7 +188,7 @@ namespace Ai
         /**
          * Apply the stateChange to the currentState
          */
-        private HashSet<KeyValuePair<string, object>> populateState(HashSet<KeyValuePair<string, object>> currentState, HashSet<KeyValuePair<string, object>> stateChange)
+        protected HashSet<KeyValuePair<string, object>> populateState(HashSet<KeyValuePair<string, object>> currentState, HashSet<KeyValuePair<string, object>> stateChange)
         {
             HashSet<KeyValuePair<string, object>> state = new HashSet<KeyValuePair<string, object>>();
             // copy the KVPs over as new objects
@@ -185,7 +204,7 @@ namespace Ai
 
                 foreach (KeyValuePair<string, object> s in state)
                 {
-                    if (s.Equals(change))
+                    if (s.Key.Equals(change.Key))
                     {
                         exists = true;
                         break;
@@ -210,7 +229,7 @@ namespace Ai
         /**
          * Used for building up the graph and holding the running costs of actions.
          */
-        private class Node
+        protected class Node
         {
             public Node parent;
             public float runningCost;
@@ -225,7 +244,5 @@ namespace Ai
                 this.action = action;
             }
         }
-
     }
-
 }

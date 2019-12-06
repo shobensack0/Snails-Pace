@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5256838713924115989}
-  - component: {fileID: 6118832501445177388}
   - component: {fileID: 5803493279524412689}
   - component: {fileID: 3579114842547193781}
+  - component: {fileID: 6267107791808147493}
   m_Layer: 0
   m_Name: Dust Cloud
   m_TagString: Untagged
@@ -33,18 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &6118832501445177388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7267975850438932500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 187eff230c786da48b18dc1411ff579a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &5803493279524412689
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4824,3 +4812,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &6267107791808147493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7267975850438932500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb6563f9ff9dd14a9aea77769919966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
