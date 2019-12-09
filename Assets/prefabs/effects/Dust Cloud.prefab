@@ -1050,12 +1050,12 @@ ParticleSystem:
           outWeight: 0.12107623
         - serializedVersion: 3
           time: 1
-          value: 0.9729767
-          inSlope: 0.7401912
-          outSlope: 0.7401912
+          value: 0
+          inSlope: -0.631272
+          outSlope: -0.631272
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.12780267
+          inWeight: 0.321832
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -4788,7 +4788,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 899450863
   m_SortingLayer: 5
-  m_SortingOrder: 4
+  m_SortingOrder: 6
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0

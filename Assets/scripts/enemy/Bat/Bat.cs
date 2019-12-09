@@ -6,6 +6,8 @@ namespace Enemy.Bat
 {
     public class Bat : Enemy
     {
+        public GameObject killEffect;
+
         void Start()
         {
             minDist = 1.5f;
@@ -32,8 +34,10 @@ namespace Enemy.Bat
 
         public override void Kill()
         {
-            Debug.Log("Bat ded");
-            Destroy(this.gameObject);
+            ParticleSystemRenderer dustRenderer = killEffect.GetComponent<ParticleSystem>()?.GetComponent<ParticleSystemRenderer>();
+            dustRenderer.sortingOrder = 6;
+
+            Instantiate(killEffect, new Vector2(character_SpriteRenderer.bounds.center.x, character_SpriteRenderer.bounds.min.y), killEffect.transform.rotation);
         }
 
         public override void PlanFailed(HashSet<KeyValuePair<string, object>> failedGoal) { }

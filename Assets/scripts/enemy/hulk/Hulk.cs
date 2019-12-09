@@ -6,6 +6,8 @@ namespace Enemy.Hulk
 {
     public class Hulk : Enemy
     {
+        public GameObject killEffect;
+
         void Start()
         {
             minDist = 1.5f;
@@ -32,7 +34,10 @@ namespace Enemy.Hulk
 
         public override void Kill()
         {
-            character_Animator.SetTrigger("Kill");
+            ParticleSystemRenderer dustRenderer = killEffect.GetComponent<ParticleSystem>()?.GetComponent<ParticleSystemRenderer>();
+            dustRenderer.sortingOrder = 6;
+
+            Instantiate(killEffect, new Vector2(character_SpriteRenderer.bounds.center.x, character_SpriteRenderer.bounds.min.y), killEffect.transform.rotation);
         }
 
         public override void PlanFailed(HashSet<KeyValuePair<string, object>> failedGoal) { }
