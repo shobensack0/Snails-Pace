@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 
 namespace Enemy
 {
@@ -6,6 +7,7 @@ namespace Enemy
     {
         #region World Components
         protected GameObject player;
+        protected Stats player_Script_Stats;
         #endregion
 
         #region Character and Components
@@ -18,6 +20,11 @@ namespace Enemy
         protected void SetCharacterComponents()
         {
             player = GameObject.FindGameObjectWithTag("Player");
+
+            if (player)
+            {
+                player.TryGetComponent<Stats>(out player_Script_Stats);
+            }
 
             TryGetComponent<PolygonCollider2D>(out character_Collider);
             TryGetComponent<Animator>(out character_Animator);

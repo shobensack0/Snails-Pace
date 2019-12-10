@@ -1,4 +1,5 @@
 ﻿using Ai;
+using Player;
 using UnityEngine;
 
 namespace Enemy.Hulk
@@ -37,7 +38,24 @@ namespace Enemy.Hulk
 
         public override bool perform(GameObject agent)
         {
-            Hulk currWolf = agent.GetComponent<Hulk>();
+            TryGetComponent<Hulk>(out Hulk thisHulk);
+            // TODO: abstract THESE COMPNONENTS BITCH
+            target.TryGetComponent<Stats>(out Stats playerStats);
+            target.TryGetComponent<BoxCollider2D>(out BoxCollider2D playerRigidBody);
+
+            if (playerStats && playerRigidBody)
+            {
+                thisHulk.TryGetComponent<Rigidbody2D>(out Rigidbody2D thisHulk_RigidBody);
+
+                if (thisHulk_RigidBody)
+                {
+                    var magnitude = 1000.0f;
+                    var force = playerRigidBody.transform.position - transform.position;
+                    force.Normalize();
+                    playerStats.TakeDamage(thisHulk.strength, force * magnitude);
+                }
+            }
+
             return false;
         }
     }

@@ -9,9 +9,9 @@ namespace Enemy
     {
 
         #region Stats
-        protected int health;
-        protected int strength;
-        protected int speed;
+        public int health;
+        public int strength;
+        public int speed;
         #endregion
 
         #region Movement Variables
@@ -73,7 +73,6 @@ namespace Enemy
                 Kill();
             }
         }
-
 
         public HashSet<KeyValuePair<string, object>> GetWorldState()
         {

@@ -10,7 +10,7 @@ namespace Enemy.Hulk
 
         void Start()
         {
-            minDist = 1.5f;
+            minDist = 1.25f;
             aggroDist = 5f;
 
             health = 50;

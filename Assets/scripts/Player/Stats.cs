@@ -61,9 +61,14 @@ namespace Player
             canRegenerateStamina = true;
         }
 
-        public void TakeDamage(float amount)
+        public void TakeDamage(float amount, Vector2 knockbackForce = default)
         {
             this.UpdateStat(healthBarFill, ref playerCurrentHealth, playerHealthIncrement, playerMaxHealth, -amount);
+
+            if (knockbackForce != default)
+            {
+                this.character_RigidBody.AddForce(knockbackForce);
+            }
         }
 
         public void TakeStamina(float amount)
