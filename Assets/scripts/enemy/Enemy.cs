@@ -66,7 +66,6 @@ namespace Enemy
         {
             CheckDeathState();
 
-            Debug.Log(health + " ");
             if (health <= 0)
             {
                 this.isDead = true;
@@ -97,7 +96,8 @@ namespace Enemy
                 var magnitude = 500f;
                 var force = transform.position - collision.transform.position;
                 force.Normalize();
-                this.characte_RigidBody.AddForce(force * magnitude);
+                this.character_RigidBody.AddForce(force * magnitude);
+                this.character_Animator.SetTrigger("Hit");
 
                 character_Animator.speed = 0.25f;
                 character_SpriteRenderer.color = Color.red;

@@ -27,13 +27,11 @@ namespace Player
             // TODO: obviously we need to set up an inventory system
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Debug.Log("Equip Sword");
                 this.EquipWeapon(0);
 
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Debug.Log("Equip Hammer");
                 this.EquipWeapon(1);
             }
 

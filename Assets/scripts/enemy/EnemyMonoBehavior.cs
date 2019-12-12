@@ -14,7 +14,7 @@ namespace Enemy
         protected PolygonCollider2D character_Collider;
         protected Animator character_Animator;
         protected SpriteRenderer character_SpriteRenderer;
-        protected Rigidbody2D characte_RigidBody;
+        protected Rigidbody2D character_RigidBody;
         #endregion
 
         protected void SetCharacterComponents()
@@ -29,7 +29,7 @@ namespace Enemy
             TryGetComponent<PolygonCollider2D>(out character_Collider);
             TryGetComponent<Animator>(out character_Animator);
             TryGetComponent<SpriteRenderer>(out character_SpriteRenderer);
-            TryGetComponent<Rigidbody2D>(out characte_RigidBody);
+            TryGetComponent<Rigidbody2D>(out character_RigidBody);
         }
     }
 }
