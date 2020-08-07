@@ -1,0 +1,61 @@
+
+Magic System
+Handled via tarot cards. There are three categories of cards. These cards should have a big place in the gameworld, everyone has a deck on them. Each card depicts
+a certain animal that represents its unique abilities. These should be fasioned after tarot cards to some degree. 
+
+The card system works as a linear deck. By default, the player has 4 slots, this can be upgraded via XP or certain buff cards that allow more slots when equiped.
+
+Each vigor card has 3 levels. By default, playing a vigor card starts at level 1. Each vigor card is affected by the cards that come after it:
+1. If two vigor cards of the same type are played in a row, the power is upgraded to level 3.
+2. If one vigor card is played, you can use up to two buff cards to reach level 3 for that vigor card. Any card after is a dead card (unless its a non stacking buff).
+
+
+Three categories of cards:
+
+Power (Fortitude Cards) - Active powers that the player can use in combat or in the world using their action button. Only one power can be equpied at a time,
+but you can have multiple on deck to toggle through (default is 3 but you can add more slots via buff cards). 
+
+ANIMALS DEPECITED:
+Bear
+Ram
+Lion
+Moose
+Wolf
+Fox
+Eagle
+
+LORE: Not as common as vigor cards, and not as rare as passive cards, fortitude cards are the meat of magic use in the world. They fetch a heavy price and are
+essentially like buying a weapon.
+
+
+Buff (Vigor Cards) - These cards enhance other cards (both fortitude and passive) or when grouped can buff the player. These are the most common cards you will find
+throughout the game, to the point where you may need to dispose of them. One card in particular (the white beatle) is a stacking card, any card beneath it
+
+ANIMALS DEPECTIED:
+Rabbit 
+Raccoon
+Raven
+Lizard
+Turtle
+Dog
+Bat
+White Beatle
+
+LORE: Being the most common cards found in the world, they aren't highly coveted. Due to their most harmless properties even when grouped (MOST OF THE TIME), they are
+even seen as childish, mostly due to the fact they are usually the first cards children get their hands on.
+
+
+Passive (Moon Cards) - These are rare cards that give the user passive abilities such as collecting more loot from enemies upon defeating them, adding to luck stats,
+
+ANIMALS DEPECTED:
+Otter
+Prcupine
+Snake
+Squirrel
+Turkey
+Owl
+Mouse
+
+
+LORE: These cards are frowned upon because they are easy to conceal unlike equiping the previous two types. There isn't anything inherently bad about them,
+people just beleive them to be cursed cards.

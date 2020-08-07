@@ -23,7 +23,6 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-
             // TODO: obviously we need to set up an inventory system
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
