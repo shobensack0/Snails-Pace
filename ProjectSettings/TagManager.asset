@@ -8,6 +8,8 @@ TagManager:
   - Weapon
   - Power
   - Enemy
+  - Interactive
+  - InteractiveCollision
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,7 @@ namespace Player
         protected Attack script_Attack;
         protected Player script_Player;
         protected Stats script_Stats;
+        protected Interact script_Interact;
         #endregion
 
         protected void SetCharacterComponents()
@@ -33,6 +34,7 @@ namespace Player
             this.TryGetComponent<Attack>(out script_Attack);
             this.TryGetComponent<Player>(out script_Player);
             this.TryGetComponent<Stats>(out script_Stats);
+            this.TryGetComponent<Interact>(out script_Interact);
         }
     }
 }

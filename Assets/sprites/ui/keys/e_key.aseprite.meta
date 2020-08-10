@@ -1,7 +1,179 @@
 fileFormatVersion: 2
 guid: edf3a0d8ed414aa47aa0d72c9e1c02b9
-DefaultImporter:
+ScriptedImporter:
+  internalIDToNameTable: []
   externalObjects: {}
+  serializedVersion: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 11500000, guid: 4f2abac286344c52b8067084af3855a2, type: 3}
+  importOptions:
+    scale: 1
+    splitLayers: 0
+    splitSlices: 0
+    fileNameFormat: '{title}_{tag}_frame{tagframe1}'
+    ditheringAlgorithmType: 0
+    ditheringMatrixType: 0
+    colorMode: 0
+  spriteImportOptions:
+    pixelsPerUnit: 16
+    pivot: {x: 0.5, y: 0.5}
+    extrude: 0
+    meshType: 1
+    border: {x: 0, y: 0, z: 0, w: 0}
+  textureCreationOptions:
+    textureWrapMode: 1
+    filterMode: 0
+    alphaIsTransparency: 1
+  animationOptions: []
+  sheetData:
+    frames:
+    - filename: e_key__frame1
+      frame:
+        x: 0
+        y: 0
+        w: 16
+        h: 16
+      rotated: 0
+      trimmed: 0
+      spriteSourceSize:
+        x: 0
+        y: 0
+        w: 16
+        h: 16
+      sourceSize:
+        w: 16
+        h: 16
+      duration: 100
+    - filename: e_key__frame2
+      frame:
+        x: 16
+        y: 0
+        w: 16
+        h: 16
+      rotated: 0
+      trimmed: 0
+      spriteSourceSize:
+        x: 0
+        y: 0
+        w: 16
+        h: 16
+      sourceSize:
+        w: 16
+        h: 16
+      duration: 100
+    - filename: e_key__frame3
+      frame:
+        x: 32
+        y: 0
+        w: 16
+        h: 16
+      rotated: 0
+      trimmed: 0
+      spriteSourceSize:
+        x: 0
+        y: 0
+        w: 16
+        h: 16
+      sourceSize:
+        w: 16
+        h: 16
+      duration: 100
+    - filename: e_key__frame4
+      frame:
+        x: 48
+        y: 0
+        w: 16
+        h: 16
+      rotated: 0
+      trimmed: 0
+      spriteSourceSize:
+        x: 0
+        y: 0
+        w: 16
+        h: 16
+      sourceSize:
+        w: 16
+        h: 16
+      duration: 100
+    - filename: e_key__frame5
+      frame:
+        x: 64
+        y: 0
+        w: 16
+        h: 16
+      rotated: 0
+      trimmed: 0
+      spriteSourceSize:
+        x: 0
+        y: 0
+        w: 16
+        h: 16
+      sourceSize:
+        w: 16
+        h: 16
+      duration: 100
+    - filename: e_key__frame6
+      frame:
+        x: 80
+        y: 0
+        w: 16
+        h: 16
+      rotated: 0
+      trimmed: 0
+      spriteSourceSize:
+        x: 0
+        y: 0
+        w: 16
+        h: 16
+      sourceSize:
+        w: 16
+        h: 16
+      duration: 100
+    - filename: e_key__frame7
+      frame:
+        x: 96
+        y: 0
+        w: 16
+        h: 16
+      rotated: 0
+      trimmed: 0
+      spriteSourceSize:
+        x: 0
+        y: 0
+        w: 16
+        h: 16
+      sourceSize:
+        w: 16
+        h: 16
+      duration: 100
+    - filename: e_key__frame8
+      frame:
+        x: 112
+        y: 0
+        w: 16
+        h: 16
+      rotated: 0
+      trimmed: 0
+      spriteSourceSize:
+        x: 0
+        y: 0
+        w: 16
+        h: 16
+      sourceSize:
+        w: 16
+        h: 16
+      duration: 100
+    meta:
+      version: 1.2.23
+      image: e_key_sheet.png
+      format: RGBA8888
+      size:
+        w: 128
+        h: 16
+      scale: 1
+      frameTags: []
+      slices: []
+    pathToSheetData: Temp/UnityTempFile-b4ce131a0debeab48ae02f9141a7a546/asetempexports/e_key_data.json
+    aseFileName: Assets/sprites/ui/keys/e_key.aseprite

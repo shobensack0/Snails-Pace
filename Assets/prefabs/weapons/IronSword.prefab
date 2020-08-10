@@ -48,6 +48,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -118,7 +120,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 2, y: 2}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
@@ -127,12 +129,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.125, y: 1.625}
-      - {x: -0.125, y: 0.1875}
-      - {x: 0.8125, y: 0.1875}
-      - {x: 1, y: 0.25}
-      - {x: 1, y: 1.5}
-      - {x: 0.875, y: 1.625}
+    - - {x: 0.9302537, y: 0.51433474}
+      - {x: 0.035005093, y: 0.56896615}
+      - {x: -0.050331116, y: -0.58052474}
+      - {x: 1.021334, y: -0.67802984}
 --- !u!114 &3477826503181446709
 MonoBehaviour:
   m_ObjectHideFlags: 0

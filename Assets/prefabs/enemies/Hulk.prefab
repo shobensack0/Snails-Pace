@@ -70,6 +70,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -94,7 +96,7 @@ SpriteRenderer:
   m_SortingLayerID: 899450863
   m_SortingLayer: 5
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1327466412413620436, guid: eb9a574f6e8372d4b941a657f4e68746,
+  m_Sprite: {fileID: -7113384208031642646, guid: a67d4986196a01b40a775db0f37bbaa7,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -130,6 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74ea69895bedff4e908eeef12bfaa8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  strength: 0
+  speed: 0
   killEffect: {fileID: 2439599662202645231, guid: 451de8b9ff2a9234c998f6753ccf20c7,
     type: 3}
 --- !u!114 &589604212661144121
@@ -183,7 +188,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 2, y: 2}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
@@ -192,10 +197,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.3151927, y: 1.9081432}
-      - {x: -0.6369457, y: 1.569566}
-      - {x: -0.6581435, y: 0.2038185}
-      - {x: -0.55652714, y: 0.07772505}
-      - {x: 0.6510768, y: 0.028263688}
-      - {x: 0.6228132, y: 1.5141318}
-      - {x: 0.5260768, y: 1.8798795}
+    - - {x: 0.6759138, y: -0.92800945}
+      - {x: 0.5304699, y: 0.87439674}
+      - {x: -0.33679533, y: 1.0548404}
+      - {x: -0.5613365, y: 0.60825}
+      - {x: -0.6861434, y: -0.9375973}
