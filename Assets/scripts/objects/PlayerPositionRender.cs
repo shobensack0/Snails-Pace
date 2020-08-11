@@ -22,7 +22,7 @@ public class PlayerPositionRender : MonoBehaviour
 
     void Update()
     {
-        if (player_BoxCollider.transform.position.y <= this_Collider.bounds.center.y)
+        if (player_BoxCollider.bounds.center.y <= this_Collider.bounds.center.y)
         {
             // render object behind player
             this.spriteRenderer.sortingOrder = 0;

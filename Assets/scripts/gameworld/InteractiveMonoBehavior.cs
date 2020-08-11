@@ -7,7 +7,9 @@ namespace GameWorld
     /// Stuff you'll need everywhere.
     /// 
     /// Interactive game objects are things that the player can interact with via a button press (eg items, characters, etc).
-    /// This is purposefully vauge to allow different objects to define their own interactivity
+    /// This is purposefully vauge to allow different objects to define their own interactivity.
+    /// 
+    /// This scripts children need to be attatched to a child of an object in order to work correctly.
     /// </summary>
     public class InteractiveMonoBehavior : MonoBehaviour
     {
@@ -28,21 +30,15 @@ namespace GameWorld
         {
             player = GameObject.FindGameObjectWithTag("Player");
 
-            TryGetComponent<PolygonCollider2D>(out character_Collider);
-            TryGetComponent<Animator>(out character_Animator);
-            TryGetComponent<SpriteRenderer>(out character_SpriteRenderer);
-            TryGetComponent<Rigidbody2D>(out character_RigidBody);
+            // these components belong to the parent object but can be used in scrips that e
+            var parent = this.transform.parent;
+            parent.TryGetComponent<PolygonCollider2D>(out character_Collider);
+            parent.TryGetComponent<Animator>(out character_Animator);
+            parent.TryGetComponent<SpriteRenderer>(out character_SpriteRenderer);
+            parent.TryGetComponent<Rigidbody2D>(out character_RigidBody);
+
             TryGetComponent<CircleCollider2D>(out character_CircleCollider);
-
-            foreach(Transform child in this.transform)
-            {
-                if (child.gameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer interactivePRompteSpriteRenderer)) {
-                    character_InteractivePromptSpriteRenderer = interactivePRompteSpriteRenderer;
-                }
-            }
-
-            if (character_InteractivePromptSpriteRenderer == null)
-                throw new System.Exception("yooo");
+            TryGetComponent<SpriteRenderer>(out character_InteractivePromptSpriteRenderer);
         }
     }
 }

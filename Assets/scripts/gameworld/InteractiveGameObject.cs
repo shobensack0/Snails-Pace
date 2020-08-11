@@ -26,6 +26,7 @@ namespace GameWorld
 
         public virtual void Start()
         {
+            SetCharacterComponents();
             SetColliderRadius();
         }
 
@@ -40,7 +41,7 @@ namespace GameWorld
         {
             if (collision.CompareTag("Player"))
             {
-                character_InteractivePromptSpriteRenderer.gameObject.SetActive(true);
+                character_InteractivePromptSpriteRenderer.enabled = true;
             }
         }
 
@@ -48,7 +49,7 @@ namespace GameWorld
         {
             if (collision.CompareTag("Player"))
             {
-                character_InteractivePromptSpriteRenderer.gameObject.SetActive(false);
+                character_InteractivePromptSpriteRenderer.enabled = false;
             }
         }
     }
