@@ -25,9 +25,9 @@ MonoBehaviour:
         theme: 
         position: {x: 216, y: 15}
         outs: ffffffff
-        advanced: 0
+        advanced: 1
         metadata: 
-        text: This is some test dialogue, does this thing still work?
+        text: This is some test dialogue, does this thing still work? <gs>Test String</gs>
         name: 
         portrait: 
         audio: 
@@ -65,14 +65,17 @@ MonoBehaviour:
         variables: []
         selection: 0
       floats:
-        variables:
-        - name: TestName
-          variable: 10
-          id: 0
-        selection: 0
-      strings:
         variables: []
         selection: 0
+      strings:
+        variables:
+        - name: Test String
+          variable: This is a test string variable
+          id: 0
+        - name: 
+          variable: 
+          id: 1
+        selection: 1
     themes:
       themes: []
       selection: 0

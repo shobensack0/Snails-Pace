@@ -1,4 +1,5 @@
 ﻿using Player;
+using System;
 using UnityEngine;
 
 namespace GameWorld
@@ -23,6 +24,11 @@ namespace GameWorld
         {
             base.Start();
             SetColliderRadius();
+        }
+
+        public void StartDialogue(int id, DialoguerCallback callback)
+        {
+            Dialoguer.StartDialogue(id, callback);
         }
     }
 }

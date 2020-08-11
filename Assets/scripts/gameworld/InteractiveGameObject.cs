@@ -42,6 +42,8 @@ namespace GameWorld
             if (collision.CompareTag("Player"))
             {
                 character_InteractivePromptSpriteRenderer.enabled = true;
+
+                Dialoguer.StartDialogue(0);
             }
         }
 

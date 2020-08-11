@@ -57,24 +57,24 @@
   <ItemGroup>
     <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AseImportContextWorker.cs" />
     <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AsepriteAutoImporter.cs" />
+    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\Managers\DialogueEditorDataManager.cs" />
+    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\DialogueEditorAssetModificationProcessor.cs" />
+    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\DialoguerEnumGenerator.cs" />
     <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AseSheetData.cs" />
+    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\DialogueEditorMasterObjectWrapperEditor.cs" />
     <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\Config.cs" />
+    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\GUI\DialogueEditorGUI.cs" />
     <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AseImportContextWorkerPro.cs" />
     <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AsepriteAutoImporterSettingsWindow.cs" />
     <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AsepriteCliOptions.cs" />
     <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AseUtils.cs" />
     <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AsepriteImporterEditor.cs" />
-    <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AsepriteAutoImporterSettings.cs" />
-    <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AsepriteCli.cs" />
-    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\Managers\DialogueEditorDataManager.cs" />
-    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\DialogueEditorAssetModificationProcessor.cs" />
-    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\DialoguerEnumGenerator.cs" />
-    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\DialogueEditorMasterObjectWrapperEditor.cs" />
-    <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\GUI\DialogueEditorGUI.cs" />
     <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\DialogueEditorHelp.cs" />
     <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\VariableEditorWindow.cs" />
     <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\DialogueEditorWindow.cs" />
+    <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AsepriteAutoImporterSettings.cs" />
     <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Editor\ThemeEditorWindow.cs" />
+    <Compile Include="Assets\AutoImporterForAsepritePro\Scripts\Editor\AsepriteCli.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
