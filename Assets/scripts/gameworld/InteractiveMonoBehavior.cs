@@ -15,6 +15,7 @@ namespace GameWorld
     {
         #region World Components
         protected GameObject player;
+        protected Player.Player player_Script_Player;
         #endregion
 
         #region Character and Components
@@ -29,6 +30,9 @@ namespace GameWorld
         protected void SetCharacterComponents()
         {
             player = GameObject.FindGameObjectWithTag("Player");
+
+            if (player != null)
+                player.TryGetComponent<Player.Player>(out player_Script_Player);
 
             // these components belong to the parent object but can be used in scrips that e
             var parent = this.transform.parent;

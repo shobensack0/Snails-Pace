@@ -11,6 +11,12 @@ namespace Player
 
         public void Update()
         {
+            if (allowPlayerInput)
+                this.HandleInput();
+        }
+
+        public void HandleInput()
+        {
             var inputActive = Input.GetMouseButtonDown(0);
 
             if (script_Player.currentWeapon)

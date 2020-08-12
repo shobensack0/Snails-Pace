@@ -44,6 +44,13 @@ namespace Player
 
         public void Update()
         {
+            if (allowPlayerInput)
+                this.HandleInput();
+        }
+
+        #region Private Methods
+        private void HandleInput()
+        {
             var horizontalMovement = Input.GetAxisRaw("Horizontal");
             var verticalMovement = Input.GetAxisRaw("Vertical");
             var runInput = Input.GetAxisRaw("Fire3") > 0.0f;
@@ -58,7 +65,6 @@ namespace Player
             this.isMoving = horizontalMovement > 0 || verticalMovement > 0;
         }
 
-        #region Private Methods
         private void SetDirection(float thisInputMovement, float otherInputMovement, ref float thisDirection, ref float otherDirection)
         {
             if (thisInputMovement != 0)

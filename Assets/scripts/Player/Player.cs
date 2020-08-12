@@ -23,6 +23,14 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
+            if (allowPlayerInput)
+                this.HandleInput();
+
+            this.ConsoleDebug(isDebug);
+        }
+
+        private void HandleInput()
+        {
             // TODO: obviously we need to set up an inventory system
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -33,8 +41,6 @@ namespace Player
             {
                 this.EquipWeapon(1);
             }
-
-            this.ConsoleDebug(isDebug);
         }
 
         private void EquipWeapon(int weaponIndex)

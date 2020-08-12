@@ -42,6 +42,12 @@ namespace Player
         
         public void Update()
         {
+            if (allowPlayerInput)
+                this.HandleInput();
+        }
+
+        public void HandleInput()
+        {
             var fire_inputActive = Input.GetMouseButtonDown(0);
             var charge_inputActive = Input.GetMouseButton(1);
             this.DeterminePowerState(charge_inputActive, fire_inputActive);

@@ -118,7 +118,6 @@
     <Compile Include="Assets\scripts\Player\Stats.cs" />
     <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Objects\DialogueObjects\DialogueEditorMasterObjectWrapper.cs" />
     <Compile Include="Assets\Dialoguer\DialogueEditor\Scripts\Statics\VariableEditorScopes.cs" />
-    <Compile Include="Assets\Dialoguer\Examples\Legacy GUI\UnityDefault\UnityDefaultGui.cs" />
     <Compile Include="Assets\scripts\gameworld\InteractiveGameObject.cs" />
     <Compile Include="Assets\Dialoguer\Dialoguer\Scripts\Phases\EndPhase.cs" />
     <Compile Include="Assets\scripts\enemy\Bat\Bat.cs" />

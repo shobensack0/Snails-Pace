@@ -7,6 +7,10 @@ namespace Player
     /// </summary>
     public class PlayerScriptMonoBehavior : MonoBehaviour
     {
+        #region
+        public bool allowPlayerInput = true;
+        #endregion
+
         #region Character and Components
         protected Animator character_Animator;
         protected SpriteRenderer character_SpriteRenderer;

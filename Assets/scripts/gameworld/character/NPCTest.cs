@@ -11,11 +11,6 @@ namespace GameWorld
     /// </summary>
     public class NPCTest : InteractiveGameObject
     {
-        public override void HandlePlayerInProximity()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override void SetColliderRadius()
         {
         }
